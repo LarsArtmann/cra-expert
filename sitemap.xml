@@ -26,6 +26,16 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://larsartmann.github.io/cra-expert/case-market-entry-wolt.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://larsartmann.github.io/cra-expert/case-peppol.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://larsartmann.github.io/cra-expert/reports/2026-11-18_sox-cra-compliance.html</loc>
     <lastmod>2026-11-18</lastmod>
     <priority>0.8</priority>

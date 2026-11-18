@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case: a launch blocked 48 hours early — Lars Artmann, CRA Expert</title>
+    <link rel="canonical" href="https://larsartmann.github.io/cra-expert/case-market-entry-wolt.html" />
+    <meta
+      name="description"
+      content="Case study: a country launch hard-blocked 48 hours before go-live by an accounting-standard incompatibility, and the 23-market VAT platform that came out of it."
+    />
+    <meta name="author" content="Lars Artmann" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://larsartmann.github.io/cra-expert/case-market-entry-wolt.html" />
+    <meta property="og:site_name" content="Lars Artmann — CRA Expert" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:title" content="Case study: the launch blocked 48 hours before go-live" />
+    <meta
+      property="og:description"
+      content="A regulatory incompatibility six months of planning missed, found 48 hours before go-live, and the platform that made sure it never happened again."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="og:image"
+      content="https://larsartmann.github.io/cra-expert/assets/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="theme-color" content="#f4f4f0" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="assets/fonts/cormorant-sc-300.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+    <style>
+      .crumbs {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 1.6rem;
+      }
+      .case-meta {
+        margin-top: 2.2rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        border: 1px solid var(--hairline);
+        background: var(--paper-raised);
+        font-size: 0.85rem;
+      }
+      @media (max-width: 900px) {
+        .case-meta {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .case-meta div {
+        padding: 0.9rem 1.1rem;
+      }
+      .case-meta + .case-meta div {
+        border-top: 1px solid var(--hairline);
+      }
+      .case-meta dt {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-50);
+        margin-bottom: 0.25rem;
+      }
+      .case-meta dd {
+        color: var(--ink-70);
+      }
+      .case-body {
+        margin-top: 2.6rem;
+        max-width: 720px;
+      }
+      .case-body h2 {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-size: 1.6rem;
+        line-height: 1.15;
+        margin: 2.6rem 0 0.6rem;
+      }
+      .case-body p {
+        font-size: 0.97rem;
+        color: var(--ink-70);
+        margin-bottom: 0.9em;
+      }
+      .case-body strong {
+        color: var(--ink);
+      }
+      .tie-in {
+        margin-top: 2.6rem;
+        background: var(--paper-raised);
+        border: 1px solid var(--hairline);
+        border-left: 3px solid var(--blue);
+        padding: clamp(1rem, 2.5vw, 1.4rem);
+        font-size: 0.9rem;
+        color: var(--ink-70);
+        max-width: 720px;
+      }
+      .tie-in strong {
+        color: var(--ink);
+      }
+      @media print {
+        .topbar,
+        .lang-switch,
+        .contact {
+          display: none;
+        }
+        body {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <a class="who" href="./">Lars Artmann</a>
+      <nav aria-label="Sections">
+        <a href="./">Home</a>
+        <a href="annex-i.html">Annex I tool</a>
+        <a href="regulatory-watch.html">Watch</a>
+        <a href="./#track">Track record</a>
+      </nav>
+      <a class="top-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+      <span class="lang-switch">
+        <a href="./" aria-current="page" lang="en">EN</a>
+        <a href="index.de.html" lang="de">DE</a>
+      </span>
+    </header>
+
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="claim">
+        <p class="crumbs"><a href="./#track">&larr; Track record</a> &middot; Case study</p>
+        <h1 id="claim" class="claim" style="font-size: clamp(1.9rem, 4.2vw, 3.1rem)">
+          The launch we stopped 48 hours before go-live
+        </h1>
+        <p class="sub">
+          A country entry at Wolt, a regulatory incompatibility six months of
+          planning had missed, and the 23-market platform that made the next
+          entries checkable.
+        </p>
+
+        <dl class="case-meta">
+          <div><dt>Client</dt><dd>Wolt (food delivery, 23+ markets)</dd></div>
+          <div><dt>Engagement</dt><dd>Sep 2024 &ndash; Mar 2025</dd></div>
+          <div><dt>Role</dt><dd>Payments &amp; compliance engineering</dd></div>
+          <div><dt>Stack</dt><dd>Kotlin, Kafka, Kubernetes, AWS, Terraform, Argo CD</dd></div>
+        </dl>
+
+        <div class="case-body">
+          <h2>What happened</h2>
+          <p>
+            North Macedonia was fully planned: six months of expansion work,
+            launch date confirmed. Two days before go-live I found that the
+            country&rsquo;s 2013 accounting-standard change was incompatible
+            with the ISO 4217 requirements our invoicing relied on &mdash; an
+            &ldquo;unknown unknown&rdquo; that had slipped past senior
+            leadership and every existing checklist.
+          </p>
+          <p>
+            I <strong>hard-blocked the launch</strong>. Blocking a country
+            launch 48 hours before go-live is not a comfortable call; shipping
+            invoices a tax authority cannot process is worse. I then led a
+            <strong>43-person crisis response together with Ernst &amp;
+            Young</strong> across engineering, Treasury and Merchant Payments.
+          </p>
+
+          <h2>The permanent fix</h2>
+          <p>
+            Post-mortems that end in slides end. This one ended in a platform:
+            the <strong>centralized VAT management API</strong> serving all 23
+            European markets &mdash; event-driven Kotlin microservices
+            processing <strong>100K+ transactions a day across 23 VAT
+            regimes</strong>, replacing hardcoded implementations scattered
+            across 50+ microservices. Market-specific rules became data with
+            owners and tests instead of folklore in fifty codebases.
+          </p>
+          <p>
+            The compliance framework that came out of the crisis is now
+            <strong>mandatory for every new market entry</strong>. On top of
+            it, I delivered <strong>Peppol-based e-invoicing (E-Rechnung) for
+            Greece</strong> and prepared the Hungarian and Bulgarian
+            rollouts, and handed Treasury, Merchant Payments and engineering
+            comprehensive documentation so the machine ran without me.
+          </p>
+
+          <h2>What it proves</h2>
+          <p>
+            Regulatory risk does not announce itself. It sits in the gap
+            between what a business assumes and what a rule actually says
+            &mdash; and it surfaces at the worst possible moment unless
+            someone systematically goes looking for it early, with the
+            primary sources open.
+          </p>
+        </div>
+
+        <div class="tie-in">
+          <strong>Why this is CRA work.</strong> The Cyber Resilience Act is
+          the same shape of problem at product scope: a regulation with hard
+          dates, categories and evidence duties, whose expensive surprises
+          live exactly in the &ldquo;we assumed&rdquo; zone. My readiness
+          assessments exist to find the North-Macedonia-grade blockers months
+          early: classification first, Annex I gap analysis second, evidence
+          built into the pipeline &mdash; not discovered in the launch week.
+          <a href="./#services">See the services.</a>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="contact">
+      <div class="wrap">
+        <h2>Shipping into the EU after Dec 2027?</h2>
+        <p>
+          Tell me what you ship and where. I will name the three questions
+          that decide your conformity route.
+        </p>
+        <a class="big-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+        <div class="contact-channels">
+          <a href="tel:+491731559729">+49 173 155 9729</a>
+          <a href="https://www.linkedin.com/in/larsartmann" rel="me">LinkedIn</a>
+          <a href="https://github.com/larsartmann" rel="me">GitHub</a>
+          <a href="https://youtube.com/@larsartmann" rel="me">YouTube</a>
+          <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="colophon">
+          <p>
+            Independent engineering-side compliance work &mdash; assessment,
+            implementation, evidence. For legal advice I team with counsel.
+          </p>
+          <p>
+            This site loads zero external resources and runs zero trackers.
+            Facts in this case study per the project record; no third-party
+            personal data.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case: e-invoicing under mandated standards — Lars Artmann, CRA Expert</title>
+    <link rel="canonical" href="https://larsartmann.github.io/cra-expert/case-peppol.html" />
+    <meta
+      name="description"
+      content="Case study: Peppol e-invoicing across Greece, Germany, France, Spain and Poland — inside a certified Access Point, and as a delivery engineer."
+    />
+    <meta name="author" content="Lars Artmann" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://larsartmann.github.io/cra-expert/case-peppol.html" />
+    <meta property="og:site_name" content="Lars Artmann — CRA Expert" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:title" content="Case study: e-invoicing under mandated standards" />
+    <meta
+      property="og:description"
+      content="Peppol XRechnung and ZUGFeRD across six-plus markets: delivery engineering at Wolt, architecture inside a certified Peppol Access Point."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="og:image"
+      content="https://larsartmann.github.io/cra-expert/assets/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="theme-color" content="#f4f4f0" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="assets/fonts/cormorant-sc-300.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+    <style>
+      .crumbs {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 1.6rem;
+      }
+      .case-meta {
+        margin-top: 2.2rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        border: 1px solid var(--hairline);
+        background: var(--paper-raised);
+        font-size: 0.85rem;
+      }
+      @media (max-width: 900px) {
+        .case-meta {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .case-meta div {
+        padding: 0.9rem 1.1rem;
+      }
+      .case-meta dt {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-50);
+        margin-bottom: 0.25rem;
+      }
+      .case-meta dd {
+        color: var(--ink-70);
+      }
+      .case-body {
+        margin-top: 2.6rem;
+        max-width: 720px;
+      }
+      .case-body h2 {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-size: 1.6rem;
+        line-height: 1.15;
+        margin: 2.6rem 0 0.6rem;
+      }
+      .case-body p {
+        font-size: 0.97rem;
+        color: var(--ink-70);
+        margin-bottom: 0.9em;
+      }
+      .case-body strong {
+        color: var(--ink);
+      }
+      .tie-in {
+        margin-top: 2.6rem;
+        background: var(--paper-raised);
+        border: 1px solid var(--hairline);
+        border-left: 3px solid var(--blue);
+        padding: clamp(1rem, 2.5vw, 1.4rem);
+        font-size: 0.9rem;
+        color: var(--ink-70);
+        max-width: 720px;
+      }
+      .tie-in strong {
+        color: var(--ink);
+      }
+      @media print {
+        .topbar,
+        .lang-switch,
+        .contact {
+          display: none;
+        }
+        body {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <a class="who" href="./">Lars Artmann</a>
+      <nav aria-label="Sections">
+        <a href="./">Home</a>
+        <a href="annex-i.html">Annex I tool</a>
+        <a href="regulatory-watch.html">Watch</a>
+        <a href="./#track">Track record</a>
+      </nav>
+      <a class="top-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+      <span class="lang-switch">
+        <a href="./" aria-current="page" lang="en">EN</a>
+        <a href="index.de.html" lang="de">DE</a>
+      </span>
+    </header>
+
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="claim">
+        <p class="crumbs"><a href="./#track">&larr; Track record</a> &middot; Case study</p>
+        <h1 id="claim" class="claim" style="font-size: clamp(1.9rem, 4.2vw, 3.1rem)">
+          E-invoicing under mandated standards
+        </h1>
+        <p class="sub">
+          Peppol, XRechnung and ZUGFeRD across six-plus European markets
+          &mdash; delivered from the merchant side at Wolt, then architected
+          from inside a certified Peppol Access Point.
+        </p>
+
+        <dl class="case-meta">
+          <div><dt>Clients</dt><dd>Wolt &middot; primeXchange</dd></div>
+          <div><dt>Engagements</dt><dd>2024&ndash;25 &middot; Nov 2025 &ndash; May 2026</dd></div>
+          <div><dt>Roles</dt><dd>Delivery engineering &middot; Software Architect &amp; Platform Engineer</dd></div>
+          <div><dt>Standards</dt><dd>Peppol, XRechnung, ZUGFeRD, EDI</dd></div>
+        </dl>
+
+        <div class="case-body">
+          <h2>At Wolt: delivering into the network</h2>
+          <p>
+            Part of the payments platform work at Wolt was
+            <strong>Peppol-based e-invoicing (E-Rechnung) for Greece</strong>
+            &mdash; delivered into production &mdash; with the Hungarian and
+            Bulgarian rollouts prepared on the same rails. E-invoicing in
+            these markets is not an integration project; it is a compliance
+            obligation with formats, deadlines and a certified network in the
+            middle. It sits directly on top of the VAT management platform
+            described in <a href="case-market-entry-wolt.html">the market-entry case</a>.
+          </p>
+
+          <h2>At primeXchange: inside the Access Point</h2>
+          <p>
+            Later I worked as <strong>Freelance Software Architect &amp;
+            Platform Engineer at primeXchange</strong>, a certified Peppol
+            Access Point and SMP (Service Metadata Publisher) serving Germany,
+            France, Greece, Spain, Poland and further markets with XRechnung,
+            ZUGFeRD and classic EDI. My side: optimising the document data
+            pipelines, leading IT crisis management, running the
+            Linux/Kubernetes/Longhorn platform, and introducing distributed
+            OpenTelemetry metrics with Python automation.
+          </p>
+          <p>
+            From inside the four-corner model you learn what regulated
+            infrastructure actually demands: every document provably
+            processed, participants validated, formats enforced to the
+            schema, errors surfaced to humans in time &mdash; and the whole
+            thing operable by a small team.
+          </p>
+
+          <h2>What it proves</h2>
+          <p>
+            Standards-bound, deadline-bound, certification-bound regimes are
+            where I have spent the last years &mdash; not as an observer but
+            as the engineer accountable for the pipes. E-invoicing was the
+            rehearsal; product cybersecurity under the CRA is the same
+            discipline at wider scope.
+          </p>
+        </div>
+
+        <div class="tie-in">
+          <strong>Why this is CRA work.</strong> The CRA inherits the exact
+          structure of these regimes &mdash; harmonised standards, conformity
+          routes, certified third parties (notified bodies instead of Access
+          Points), and statutory clocks &mdash; and applies it to products
+          with digital elements. I have shipped inside that structure for
+          years. <a href="./#services">See how I apply it to the CRA.</a>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="contact">
+      <div class="wrap">
+        <h2>Your products have a deadline too.</h2>
+        <p>
+          Full application lands 11 December 2027; reporting duties already
+          run. Tell me what you ship, and where.
+        </p>
+        <a class="big-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+        <div class="contact-channels">
+          <a href="tel:+491731559729">+49 173 155 9729</a>
+          <a href="https://www.linkedin.com/in/larsartmann" rel="me">LinkedIn</a>
+          <a href="https://github.com/larsartmann" rel="me">GitHub</a>
+          <a href="https://youtube.com/@larsartmann" rel="me">YouTube</a>
+          <a href="privacy.html">Privacy</a>
+        </div>
+        <div class="colophon">
+          <p>
+            Independent engineering-side compliance work &mdash; assessment,
+            implementation, evidence. For legal advice I team with counsel.
+          </p>
+          <p>
+            This site loads zero external resources and runs zero trackers.
+            Facts in this case study per the project record; no third-party
+            personal data.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
