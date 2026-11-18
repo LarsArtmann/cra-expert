@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annex I self-assessment — Lars Artmann, CRA Expert</title>
+    <link rel="canonical" href="https://larsartmann.github.io/cra-expert/annex-i.html" />
+    <meta
+      name="description"
+      content="Annex I self-assessment: all 13 product properties and 8 vulnerability-handling requirements as a checkable list with evidence hints. Runs locally."
+    />
+    <meta name="author" content="Lars Artmann" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://larsartmann.github.io/cra-expert/annex-i.html" />
+    <meta property="og:site_name" content="Lars Artmann — CRA Expert" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:title" content="Annex I self-assessment starter — Lars Artmann, CRA Expert" />
+    <meta
+      property="og:description"
+      content="The 21 essential requirements of CRA Annex I as a checkable list with evidence hints. Local-only: your answers never leave this browser."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="og:image"
+      content="https://larsartmann.github.io/cra-expert/assets/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="theme-color" content="#f4f4f0" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="assets/fonts/cormorant-sc-300.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/site.css" />
+    <style>
+      .crumbs {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 1.6rem;
+      }
+      .scope {
+        background: var(--paper-raised);
+        border: 1px solid var(--hairline);
+        border-left: 3px solid var(--yellow);
+        padding: clamp(1rem, 2.5vw, 1.4rem);
+        margin: 1.8rem 0 0;
+        font-size: 0.9rem;
+        color: var(--ink-70);
+        max-width: var(--measure);
+      }
+      .scope strong {
+        color: var(--ink);
+      }
+      .progress-block {
+        margin: 2.4rem 0 0;
+        max-width: 640px;
+      }
+      .progress-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        margin-bottom: 0.4rem;
+      }
+      .progress-row .count {
+        color: var(--blue);
+        font-weight: 700;
+      }
+      .bar {
+        height: 6px;
+        background: var(--paper-sunken);
+        border: 1px solid var(--hairline);
+        margin-bottom: 1.1rem;
+      }
+      .bar > div {
+        height: 100%;
+        width: 0;
+        background: var(--blue);
+        transition: width 0.25s ease;
+      }
+      .bar.total > div {
+        background: var(--ink);
+      }
+      .reqs {
+        margin-top: 2.8rem;
+      }
+      .reqs h3 {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-size: 1.6rem;
+        line-height: 1.15;
+        margin: 2.6rem 0 0.4rem;
+      }
+      .reqs .part-note {
+        font-size: 0.88rem;
+        color: var(--ink-70);
+        max-width: var(--measure);
+        margin-bottom: 1.2rem;
+      }
+      .req {
+        border-top: 1px solid var(--hairline);
+        padding: 1.15rem 0 1.25rem;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 0.3rem 2.5rem;
+      }
+      @media (max-width: 800px) {
+        .req {
+          grid-template-columns: 1fr;
+          gap: 0.3rem;
+        }
+      }
+      .req label {
+        display: flex;
+        gap: 0.8rem;
+        align-items: baseline;
+        cursor: pointer;
+      }
+      .req .pt {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--blue);
+        white-space: nowrap;
+        padding-top: 0.35rem;
+        border-top: 2px solid var(--ink);
+      }
+      .req input[type="checkbox"] {
+        width: 1.15rem;
+        height: 1.15rem;
+        flex: none;
+        accent-color: var(--blue);
+        transform: translateY(0.2rem);
+      }
+      .req .rtext {
+        font-size: 0.93rem;
+        color: var(--ink-70);
+      }
+      .req .rtext strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .req .hint {
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: var(--ink-50);
+        max-width: 60ch;
+      }
+      .req .hint strong {
+        color: var(--blue);
+        font-weight: 600;
+      }
+      .req:has(input:checked) .rtext {
+        color: var(--ink-50);
+      }
+      .req:has(input:checked) .pt {
+        color: var(--ink-50);
+        border-top-color: var(--hairline-strong);
+      }
+      .tools {
+        margin-top: 2.6rem;
+        display: flex;
+        gap: 0.9rem 1.4rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .saved-note {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--ink-50);
+      }
+      .src-note {
+        margin-top: 3rem;
+        max-width: var(--measure);
+        font-size: 0.86rem;
+        color: var(--ink-70);
+      }
+      @media print {
+        .topbar,
+        .tools,
+        .lang-switch {
+          display: none;
+        }
+        body {
+          font-size: 10.5pt;
+          background: #fff;
+        }
+        .req {
+          break-inside: avoid;
+          grid-template-columns: 90px 1fr;
+        }
+        .req input[type="checkbox"] {
+          appearance: none;
+          border: 1.4px solid #000;
+          border-radius: 0;
+        }
+        .req input[type="checkbox"]:checked {
+          background: #000;
+        }
+        .scope {
+          border-left-color: #000;
+        }
+        .progress-block .bar > div {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <a class="who" href="./">Lars Artmann</a>
+      <nav aria-label="Sections">
+        <a href="./">Home</a>
+        <a href="annex-i.html" aria-current="page">Annex I tool</a>
+        <a href="./#services">Services</a>
+        <a href="./#research">Research</a>
+      </nav>
+      <a class="top-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+      <span class="lang-switch">
+        <a href="./" aria-current="page" lang="en">EN</a>
+        <a href="index.de.html" lang="de">DE</a>
+      </span>
+    </header>
+
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="claim">
+        <p class="crumbs"><a href="./">&larr; CRA expert home</a></p>
+        <h1 id="claim" class="claim" style="font-size: clamp(2rem, 4.6vw, 3.4rem)">
+          Annex&nbsp;I self-assessment starter
+        </h1>
+        <p class="sub">
+          All <strong>21 essential requirements</strong> of Regulation (EU)
+          2024/2847, Annex I &mdash; 13 product properties (Part I) and 8
+          vulnerability-handling duties (Part II) &mdash; as one checkable
+          list, each with the evidence that typically satisfies it. Tick what
+          you can prove; the rest is your remediation backlog.
+        </p>
+        <p class="scope">
+          <strong>Honest scope note.</strong> This is an engineering
+          self-assessment aid, not legal advice and not a conformity
+          assessment. The requirement texts are condensed from the Official
+          Journal wording (read and verified 18 Nov 2026); the verbatim text,
+          including the chapeau of Part I item (2), is in
+          <a href="reports/2026-11-18_sox-cra-compliance.html#annexa">Appendix A of the research report</a>.
+          Evidence hints are my engineering reading, labelled as such. The
+          page runs entirely in your browser: answers are stored only in
+          this browser&rsquo;s local storage, nothing is sent anywhere.
+        </p>
+
+        <div class="progress-block" aria-live="polite">
+          <div class="progress-row">
+            <span>Part I &mdash; product properties</span>
+            <span class="count" id="count-p1">0 / 13</span>
+          </div>
+          <div class="bar"><div id="bar-p1"></div></div>
+          <div class="progress-row">
+            <span>Part II &mdash; vulnerability handling</span>
+            <span class="count" id="count-p2">0 / 8</span>
+          </div>
+          <div class="bar"><div id="bar-p2"></div></div>
+          <div class="progress-row">
+            <span>Total evidence coverage</span>
+            <span class="count" id="count-total">0 / 21</span>
+          </div>
+          <div class="bar total"><div id="bar-total"></div></div>
+        </div>
+      </section>
+
+      <section id="checklist" class="wrap reqs" aria-labelledby="checklist-h" data-as-of="2026-11-18">
+        <div class="sec-head">
+          <p class="kicker">The checklist</p>
+          <h2 id="checklist-h">All 21 requirements, one backlog</h2>
+        </div>
+
+        <h3>Annex I, Part I &mdash; properties of products with digital elements</h3>
+        <p class="part-note">
+          The chapeau: products shall be designed, developed and produced to
+          ensure an appropriate level of cybersecurity based on the risks
+          (item 1), on the basis of the Art 13(2) risk assessment and where
+          applicable (item 2).
+        </p>
+
+        <div class="req">
+          <label><input type="checkbox" data-id="p1a" /><span class="pt">I.2(a)</span></label>
+          <div>
+            <p class="rtext"><strong>No known exploitable vulnerabilities</strong> on market placement.</p>
+            <p class="hint"><strong>Evidence:</strong> pre-release security testing records; scanner output triaged to an SLA (e.g. Trivy/Syft + OSV); VEX statements suppressing investigated non-issues; a release gate policy.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1b" /><span class="pt">I.2(b)</span></label>
+          <div>
+            <p class="rtext"><strong>Secure by default</strong> configuration (unless agreed otherwise for tailor-made products), including the possibility to reset the product to its original state.</p>
+            <p class="hint"><strong>Evidence:</strong> hardening baseline as code (IaC module defaults); configuration tests in CI; documented factory-reset procedure.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1c" /><span class="pt">I.2(c)</span></label>
+          <div>
+            <p class="rtext"><strong>Vulnerabilities addressable through security updates</strong>, including automatic updates installed within an appropriate timeframe, enabled by default, with a clear easy-to-use opt-out, update notifications, and the option to postpone temporarily.</p>
+            <p class="hint"><strong>Evidence:</strong> update mechanism and rollout pipeline; default-on auto-update UX with opt-out; published support-period end dates per product.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1d" /><span class="pt">I.2(d)</span></label>
+          <div>
+            <p class="rtext"><strong>Protection from unauthorised access</strong> via appropriate control mechanisms (authentication, identity or access management), and reporting on possible unauthorised access.</p>
+            <p class="hint"><strong>Evidence:</strong> IdP-based authN/authZ; access-management design doc; alerts/reports on unauthorised-access events.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1e" /><span class="pt">I.2(e)</span></label>
+          <div>
+            <p class="rtext"><strong>Confidentiality of stored, transmitted or processed data</strong>, personal or other, e.g. via state-of-the-art encryption at rest or in transit and other technical means.</p>
+            <p class="hint"><strong>Evidence:</strong> TLS configuration review; encryption-at-rest for persisted stores; key-management documentation.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1f" /><span class="pt">I.2(f)</span></label>
+          <div>
+            <p class="rtext"><strong>Integrity of data, commands, programs and configuration</strong> against unauthorised manipulation, and reporting on corruptions.</p>
+            <p class="hint"><strong>Evidence:</strong> checksums/signatures on artifacts and updates; corruption detection and reporting in monitoring.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1g" /><span class="pt">I.2(g)</span></label>
+          <div>
+            <p class="rtext"><strong>Data minimisation</strong>: only data adequate, relevant and limited to what is necessary for the intended purpose.</p>
+            <p class="hint"><strong>Evidence:</strong> data-flow inventory; minimisation checkpoint in the design review template.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1h" /><span class="pt">I.2(h)</span></label>
+          <div>
+            <p class="rtext"><strong>Availability of essential and basic functions, also after an incident</strong>, including resilience and mitigation measures against denial-of-service attacks.</p>
+            <p class="hint"><strong>Evidence:</strong> DoS resilience measures (rate limiting, degradation modes); incident recovery exercises with records.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1i" /><span class="pt">I.2(i)</span></label>
+          <div>
+            <p class="rtext"><strong>Minimised negative impact on the availability of services</strong> provided by other devices or networks.</p>
+            <p class="hint"><strong>Evidence:</strong> backpressure/rate-limit design; network-hygiene test results.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1j" /><span class="pt">I.2(j)</span></label>
+          <div>
+            <p class="rtext"><strong>Limited attack surfaces</strong>, including external interfaces, by design.</p>
+            <p class="hint"><strong>Evidence:</strong> interface inventory; exposed-surface review per release; removal records for dead interfaces.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1k" /><span class="pt">I.2(k)</span></label>
+          <div>
+            <p class="rtext"><strong>Reduced incident impact</strong> via appropriate exploitation mitigation mechanisms and techniques.</p>
+            <p class="hint"><strong>Evidence:</strong> hardening flags (ASLR, sandboxing, memory-safe paths where feasible); penetration-test reports.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1l" /><span class="pt">I.2(l)</span></label>
+          <div>
+            <p class="rtext"><strong>Security-related information by recording and monitoring relevant internal activity</strong> (access to or modification of data, services, functions), with a user opt-out.</p>
+            <p class="hint"><strong>Evidence:</strong> audit logging with retention and log-integrity protection; documented user opt-out.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p1m" /><span class="pt">I.2(m)</span></label>
+          <div>
+            <p class="rtext"><strong>Secure and easy permanent removal of all data and settings</strong>, and secure transfer to other products or systems where data can be transferred.</p>
+            <p class="hint"><strong>Evidence:</strong> deletion feature with verification test; secure export/transfer mechanism.</p>
+          </div>
+        </div>
+
+        <h3>Annex I, Part II &mdash; vulnerability handling requirements</h3>
+        <p class="part-note">
+          These are process duties on the manufacturer; Part II point 1 is a
+          statutory SBOM duty.
+        </p>
+
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-1" /><span class="pt">II.1</span></label>
+          <div>
+            <p class="rtext"><strong>Identify and document vulnerabilities and components</strong>, including a software bill of materials in a commonly used, machine-readable format covering at least top-level dependencies.</p>
+            <p class="hint"><strong>Evidence:</strong> SBOM generation in the release pipeline (CycloneDX or SPDX, e.g. via Syft); component inventory retained per release.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-2" /><span class="pt">II.2</span></label>
+          <div>
+            <p class="rtext"><strong>Address and remediate vulnerabilities without delay</strong>, including security updates; where technically feasible, security updates provided separately from functionality updates.</p>
+            <p class="hint"><strong>Evidence:</strong> patch SLA policy; separate security-update release path in the pipeline.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-3" /><span class="pt">II.3</span></label>
+          <div>
+            <p class="rtext"><strong>Effective and regular tests and reviews</strong> of the security of the product.</p>
+            <p class="hint"><strong>Evidence:</strong> recurring security test schedule (SAST/DAST/dependency scanning) with retained results.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-4" /><span class="pt">II.4</span></label>
+          <div>
+            <p class="rtext"><strong>Public disclosure of fixed vulnerabilities</strong>: description, affected-product identification, impacts, severity, and remediation guidance; delayed publication only in duly justified cases until users can patch.</p>
+            <p class="hint"><strong>Evidence:</strong> advisory publishing process (advisories page or OSV feed); disclosure log with dates.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-5" /><span class="pt">II.5</span></label>
+          <div>
+            <p class="rtext"><strong>A policy on coordinated vulnerability disclosure</strong>, put in place and enforced.</p>
+            <p class="hint"><strong>Evidence:</strong> CVD policy document, referenced from security.txt.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-6" /><span class="pt">II.6</span></label>
+          <div>
+            <p class="rtext"><strong>Facilitate sharing of vulnerability information</strong> for the product and third-party components, including a contact address for reports.</p>
+            <p class="hint"><strong>Evidence:</strong> security.txt on the product domain; intake process with triage owner.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-7" /><span class="pt">II.7</span></label>
+          <div>
+            <p class="rtext"><strong>Mechanisms to securely distribute updates</strong>, so vulnerabilities are fixed or mitigated in a timely manner, automatically where applicable.</p>
+            <p class="hint"><strong>Evidence:</strong> signed update artifacts; delivery infrastructure with integrity checks.</p>
+          </div>
+        </div>
+        <div class="req">
+          <label><input type="checkbox" data-id="p2-8" /><span class="pt">II.8</span></label>
+          <div>
+            <p class="rtext"><strong>Security updates disseminated without delay and free of charge</strong>, accompanied by advisory messages with relevant information and potential actions.</p>
+            <p class="hint"><strong>Evidence:</strong> release-communication template including user-facing advisories.</p>
+          </div>
+        </div>
+
+        <div class="tools">
+          <button class="btn btn-ghost" type="button" id="reset-checklist">Reset all ticks</button>
+          <button class="btn btn-ghost" type="button" id="print-checklist">Print / save as PDF</button>
+          <span class="saved-note" id="saved-note">State is kept in this browser only.</span>
+        </div>
+
+        <p class="src-note">
+          Source texts condensed from Regulation (EU) 2024/2847, Annex I, as
+          published in the Official Journal (OJ L, 20.11.2024) and verified
+          on 18 November 2026;
+          <a href="reports/2026-11-18_sox-cra-compliance.html#annexa">the verbatim table is in the research report&rsquo;s Appendix A</a>.
+          Want this run as a guided assessment with a written gap report?
+          <a href="mailto:lars@artmann.tech?subject=Annex%20I%20guided%20assessment">Ask for the guided version.</a>
+        </p>
+      </section>
+    </main>
+
+    <footer id="contact" class="contact">
+      <div class="wrap">
+        <h2>Not sure what counts as evidence?</h2>
+        <p>
+          That question is the assessment. Send me the three requirements you
+          cannot tick, and I will tell you what a market-surveillance authority
+          would ask for.
+        </p>
+        <a class="big-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+        <div class="contact-channels">
+          <a href="tel:+491731559729">+49 173 155 9729</a>
+          <a href="https://www.linkedin.com/in/larsartmann" rel="me">LinkedIn</a>
+          <a href="https://github.com/larsartmann" rel="me">GitHub</a>
+          <a href="https://youtube.com/@larsartmann" rel="me">YouTube</a>
+        </div>
+        <div class="colophon">
+          <p>
+            Independent engineering-side compliance work &mdash; assessment,
+            implementation, evidence. For legal advice I team with counsel.
+          </p>
+          <p>
+            This site loads zero external resources and runs zero trackers.
+            Statutory dates per Regulation (EU) 2024/2847, as of 18 Nov 2026.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Local-only checklist state (localStorage); zero network.
+      (function () {
+        var KEY = "cra-annex1-v1";
+        var boxes = Array.prototype.slice.call(
+          document.querySelectorAll('.req input[type="checkbox"]')
+        );
+        function readState() {
+          try {
+            return JSON.parse(localStorage.getItem(KEY) || "{}");
+          } catch (e) {
+            return {};
+          }
+        }
+        function save() {
+          var state = {};
+          boxes.forEach(function (box) {
+            if (box.checked) state[box.dataset.id] = 1;
+          });
+          try {
+            localStorage.setItem(KEY, JSON.stringify(state));
+            var note = document.getElementById("saved-note");
+            if (note) note.textContent = "Saved locally " + new Date().toLocaleString() + ".";
+          } catch (e) {
+            /* storage unavailable: checklist still works per-tab */
+          }
+        }
+        function update() {
+          function countFor(prefix) {
+            var all = boxes.filter(function (b) {
+              return b.dataset.id.indexOf(prefix) === 0;
+            });
+            return [all.filter(function (b) { return b.checked; }).length, all.length];
+          }
+          function setBar(barId, countId, done, total) {
+            var bar = document.getElementById(barId);
+            var label = document.getElementById(countId);
+            if (label) label.textContent = done + " / " + total;
+            if (bar) bar.style.width = (total ? (100 * done) / total : 0) + "%";
+          }
+          var p1 = countFor("p1");
+          var p2 = countFor("p2-");
+          setBar("bar-p1", "count-p1", p1[0], p1[1]);
+          setBar("bar-p2", "count-p2", p2[0], p2[1]);
+          setBar("bar-total", "count-total", p1[0] + p2[0], p1[1] + p2[1]);
+        }
+        var stored = readState();
+        boxes.forEach(function (box) {
+          box.checked = !!stored[box.dataset.id];
+          box.addEventListener("change", function () {
+            save();
+            update();
+          });
+        });
+        var reset = document.getElementById("reset-checklist");
+        if (reset)
+          reset.addEventListener("click", function () {
+            boxes.forEach(function (box) {
+              box.checked = false;
+            });
+            try {
+              localStorage.removeItem(KEY);
+            } catch (e) {
+              /* ignore */
+            }
+            var note = document.getElementById("saved-note");
+            if (note) note.textContent = "State is kept in this browser only.";
+            update();
+          });
+        var printBtn = document.getElementById("print-checklist");
+        if (printBtn) printBtn.addEventListener("click", function () { window.print(); });
+        update();
+      })();
+    </script>
+  </body>
+</html>
