@@ -1,0 +1,3086 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      SOX and the Cyber Resilience Act — compliance research 2026-11-18
+    </title>
+    <style>
+      /* =========================================================================
+         BAUHAUS LIGHT — Editorial template
+         Design language: form follows function. Primary colors on warm paper.
+         Zero external dependencies: system fonts, no CDN, no build step.
+         Token architecture: see references/bauhaus-tokens.md
+         ========================================================================= */
+
+      :root {
+        /* --- Primitive palette (Bauhaus Light) --- */
+        --color-paper: #f4f4f0;
+        --color-paper-2: #ffffff;
+        --color-paper-3: #e8e8e2;
+        --color-ink: #111111;
+        --color-red: #e63946;
+        --color-blue: #1d3557;
+        --color-yellow: #f4d35e;
+        --color-hairline: rgba(17, 17, 17, 0.14);
+        --color-hairline-strong: rgba(17, 17, 17, 0.3);
+
+        /* --- Semantic layer (shared vocabulary with dark template) --- */
+        --surface: var(--color-paper);
+        --surface-raised: var(--color-paper-2);
+        --surface-sunken: var(--color-paper-3);
+        --text: var(--color-ink);
+        --text-muted: rgba(17, 17, 17, 0.72);
+        --text-faint: rgba(17, 17, 17, 0.5);
+        --border: var(--color-hairline);
+        --border-strong: var(--color-hairline-strong);
+        --accent: var(--color-red);
+        --problem: var(--color-red);
+        --solution: var(--color-blue);
+        --warning: var(--color-yellow);
+
+        /* --- Backward-compatible aliases (do not break consumer skills) --- */
+        --bg: var(--surface);
+        --bg-elevated: var(--surface-raised);
+        --bg-sunken: var(--surface-sunken);
+        --bg-card: var(--surface-raised);
+        --bg-code: var(--surface-sunken);
+        --ink: var(--text);
+        --ink-secondary: var(--text-muted);
+        --ink-muted: var(--text-faint);
+        --rose: var(--problem);
+        --rose-glow: color-mix(in srgb, var(--problem) 15%, transparent);
+        --emerald: var(--solution);
+        --emerald-glow: color-mix(in srgb, var(--solution) 15%, transparent);
+        --amber: var(--warning);
+        --amber-glow: color-mix(in srgb, var(--warning) 15%, transparent);
+        --amber-light: color-mix(in srgb, var(--warning) 22%, transparent);
+        --coral: var(--problem);
+        --coral-light: color-mix(in srgb, var(--problem) 12%, transparent);
+        --teal: var(--solution);
+        --teal-light: color-mix(in srgb, var(--solution) 12%, transparent);
+
+        /* --- Shape --- */
+        --radius: 0px;
+        --radius-sm: 0px;
+
+        /* --- Type stacks (system only — zero external fonts) --- */
+        --font-heading:
+          ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-body:
+          ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-mono:
+          ui-monospace, "Cascadia Code", "Source Code Pro", "JetBrains Mono",
+          Menlo, Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      section[id],
+      [id] {
+        scroll-margin-top: 60px;
+      }
+
+      body {
+        background: var(--surface);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* --- Accessibility: keyboard focus --- */
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      a:focus-visible {
+        outline-offset: -1px;
+      }
+
+      /* --- Full-bleed top bar --- */
+      .top-bar {
+        background: var(--text);
+        color: var(--surface);
+        padding: 0.6rem 2rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* --- Layout: optional sticky sidebar TOC --- */
+      .layout {
+        display: flex;
+        gap: 2.5rem;
+        padding: 2rem;
+      }
+      .sidebar {
+        width: 220px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+        height: calc(100vh - 2rem);
+        overflow-y: auto;
+        display: none;
+      }
+      .sidebar nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .sidebar .label {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 2px solid var(--text);
+      }
+      .sidebar a {
+        font-size: 0.86rem;
+        color: var(--text);
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        border-left: 4px solid transparent;
+        font-weight: 600;
+        transition: all 0.15s ease;
+        line-height: 1.4;
+      }
+      .sidebar a:hover,
+      .sidebar a.active {
+        border-left-color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 8%, transparent);
+        color: var(--accent);
+      }
+      .main {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* --- Headings --- */
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-heading);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+      h1 {
+        font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+        line-height: 1.05;
+        margin: 0 0 0.6rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        margin: 2.5rem 0 1rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 3px solid var(--text);
+        display: flex;
+        align-items: baseline;
+        gap: 0.7rem;
+      }
+      h2 .num {
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+      h3 {
+        font-size: 1.15rem;
+        margin: 0 0 0.4rem;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 1rem;
+        margin: 0 0 0.3rem;
+        font-weight: 700;
+      }
+      p {
+        margin: 0 0 1rem;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        padding: 1.5rem 0 2rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 3px solid var(--text);
+      }
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--accent);
+        margin-bottom: 0.9rem;
+      }
+      .subtitle {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        max-width: 70ch;
+        margin: 0 0 1rem;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .tag {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 0.25rem 0.6rem;
+        background: var(--surface-sunken);
+        color: var(--text);
+        border: 1px solid var(--border-strong);
+      }
+      .tag.amber {
+        background: var(--warning);
+        border-color: var(--warning);
+        color: var(--text);
+      }
+      .tag.teal {
+        background: var(--solution);
+        border-color: var(--solution);
+        color: var(--surface);
+      }
+
+      /* Bauhaus signature: geometric shape cluster (optional) */
+      .hero-shapes {
+        position: relative;
+        height: 90px;
+        margin-bottom: 1.2rem;
+      }
+      .hero-shapes .circle {
+        position: absolute;
+        top: 0;
+        right: 180px;
+        width: 64px;
+        height: 64px;
+        background: var(--problem);
+        border-radius: 50%;
+      }
+      .hero-shapes .square {
+        position: absolute;
+        top: 26px;
+        right: 90px;
+        width: 56px;
+        height: 56px;
+        background: var(--solution);
+      }
+      .hero-shapes .tri {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-left: 32px solid transparent;
+        border-right: 32px solid transparent;
+        border-bottom: 56px solid var(--warning);
+      }
+      .hero-shapes .bar {
+        position: absolute;
+        bottom: 0;
+        right: 230px;
+        width: 100px;
+        height: 14px;
+        background: var(--text);
+      }
+
+      /* --- Scorecard / stat cards --- */
+      .scorecard,
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0;
+        margin: 1.5rem 0 2rem;
+        border: 3px solid var(--text);
+      }
+      .score-card,
+      .stat-card {
+        padding: 1.3rem 1rem;
+        text-align: center;
+        border-right: 3px solid var(--text);
+        background: var(--surface-raised);
+      }
+      .score-card:last-child,
+      .stat-card:last-child {
+        border-right: none;
+      }
+
+      .score,
+      .stat-value {
+        font-family: var(--font-heading);
+        font-size: 2.6rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+      .score-card .label,
+      .stat-label {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-top: 0.5rem;
+      }
+      /* Semantic state classes — no nth-child decoration, no !important */
+      .score-good,
+      .stat-good {
+        background: var(--solution);
+        color: var(--surface);
+      }
+      .score-warn,
+      .stat-warn {
+        background: var(--warning);
+        color: var(--text);
+      }
+      .score-bad,
+      .stat-bad {
+        background: var(--problem);
+        color: var(--surface);
+      }
+
+      /* --- General cards --- */
+      .card {
+        background: var(--surface-raised);
+        border: 2px solid var(--text);
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 1rem;
+        border-left: 8px solid var(--border-strong);
+      }
+      .card-problem {
+        border-left-color: var(--problem);
+      }
+      .card-solution {
+        border-left-color: var(--solution);
+      }
+      .card-warning {
+        border-left-color: var(--warning);
+      }
+
+      /* --- Issue cards --- */
+      .issue {
+        background: var(--surface-raised);
+        border: 2px solid var(--text);
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 1rem;
+        border-left: 8px solid var(--border-strong);
+      }
+      .issue-critical {
+        border-left-color: var(--problem);
+      }
+      .issue-important {
+        border-left-color: var(--warning);
+      }
+      .issue-nice {
+        border-left-color: var(--solution);
+      }
+      .issue h3 {
+        margin-bottom: 0.3rem;
+      }
+      .issue .where {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        color: var(--text-faint);
+        margin: 0.2rem 0 0.6rem;
+      }
+      .issue p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* --- Severity badges --- */
+      .severity {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.22rem 0.6rem;
+        margin-bottom: 0.6rem;
+        color: var(--surface);
+      }
+      .severity-critical {
+        background: var(--problem);
+      }
+      .severity-important {
+        background: var(--warning);
+        color: var(--text);
+      }
+      .severity-nice {
+        background: var(--solution);
+      }
+
+      /* --- Inline badges --- */
+      .badge {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.2rem 0.55rem;
+        border: 1px solid var(--text);
+        color: var(--text);
+      }
+      .badge-critical {
+        background: var(--problem);
+        color: var(--surface);
+      }
+      .badge-high {
+        background: var(--warning);
+      }
+      .badge-medium {
+        background: var(--surface-sunken);
+      }
+      .badge-low {
+        background: var(--surface-raised);
+        color: var(--text-muted);
+      }
+      .badge-fixed {
+        background: var(--solution);
+        color: var(--surface);
+      }
+
+      /* --- Callouts --- */
+      .callout {
+        margin: 0.8rem 0 0;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--border-strong);
+        border-left: 4px solid var(--border-strong);
+        background: var(--surface-sunken);
+        font-size: 0.92rem;
+      }
+      .callout strong {
+        display: inline-block;
+        margin-right: 0.4rem;
+      }
+      .callout-teal,
+      .callout-solution {
+        border-left-color: var(--solution);
+        background: color-mix(
+          in srgb,
+          var(--solution) 10%,
+          var(--surface-raised)
+        );
+      }
+      .callout-amber,
+      .callout-warning {
+        border-left-color: var(--warning);
+        background: color-mix(
+          in srgb,
+          var(--warning) 18%,
+          var(--surface-raised)
+        );
+      }
+
+      /* --- Strengths --- */
+      .strengths {
+        display: grid;
+        gap: 0.5rem;
+        margin: 1rem 0 1.5rem;
+      }
+      .strength {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.9rem;
+        padding: 0.75rem 0;
+        border-bottom: 2px solid var(--border);
+      }
+      .strength .check {
+        font-family: var(--font-mono);
+        font-weight: 900;
+        color: var(--solution);
+        font-size: 1.3rem;
+        line-height: 1.3;
+      }
+      .strength .text strong {
+        display: block;
+        margin-bottom: 0.15rem;
+      }
+      .strength .text span {
+        color: var(--text-muted);
+        font-size: 0.92rem;
+      }
+
+      /* --- Tables --- */
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.92rem;
+        border: 2px solid var(--text);
+      }
+      th {
+        text-align: left;
+        padding: 0.6rem 0.9rem;
+        background: var(--text);
+        color: var(--surface);
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-right: 1px solid var(--border-strong);
+      }
+      th:last-child {
+        border-right: none;
+      }
+      td {
+        padding: 0.6rem 0.9rem;
+        border-top: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
+      td:last-child {
+        border-right: none;
+      }
+      tr:nth-child(even) td {
+        background: var(--surface-sunken);
+      }
+      table.compare td.yes {
+        color: var(--solution);
+        font-weight: 700;
+      }
+      table.compare td.no {
+        color: var(--problem);
+        font-weight: 700;
+      }
+
+      /* --- Code blocks + syntax highlighting --- */
+      pre {
+        background: var(--text);
+        color: var(--surface);
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        line-height: 1.65;
+        overflow-x: auto;
+        border: 2px solid var(--text);
+      }
+      code {
+        font-family: var(--font-mono);
+      }
+      p code,
+      li code,
+      td code {
+        font-size: 0.88em;
+        background: var(--surface-sunken);
+        padding: 0.1rem 0.35rem;
+      }
+      .tok-keyword {
+        color: var(--warning);
+      }
+      .tok-type {
+        color: var(--warning);
+      }
+      .tok-string {
+        color: #95e1d3;
+      }
+      .tok-comment {
+        color: rgba(244, 244, 240, 0.45);
+        font-style: italic;
+      }
+      .tok-func {
+        color: #6eb5ff;
+      }
+      .tok-number {
+        color: var(--warning);
+      }
+      .tok-generic {
+        color: var(--problem);
+      }
+      .tok-builtin {
+        color: #6eb5ff;
+      }
+      .tok-punct {
+        color: rgba(244, 244, 240, 0.7);
+      }
+      .tok-attr {
+        color: var(--warning);
+      }
+
+      /* --- Dependency tree / ASCII diagrams --- */
+      .dep-tree {
+        background: var(--surface-sunken);
+        border: 2px solid var(--text);
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
+        line-height: 1.7;
+        color: var(--text);
+        white-space: pre;
+        overflow-x: auto;
+      }
+      .dep-tree .root {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .dep-tree .ok {
+        color: var(--solution);
+      }
+      .dep-tree .unwanted {
+        color: var(--problem);
+      }
+
+      /* --- Inline node-and-arrow diagrams --- */
+      .diagram {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        background: var(--surface-raised);
+        border: 2px solid var(--text);
+      }
+      .node {
+        display: inline-block;
+        padding: 0.4rem 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 700;
+        background: var(--surface-sunken);
+        border: 1px solid var(--text);
+      }
+      .node-core {
+        background: var(--accent);
+        color: var(--surface);
+      }
+      .node-problem {
+        background: var(--problem);
+        color: var(--surface);
+      }
+      .node-good {
+        background: var(--solution);
+        color: var(--surface);
+      }
+      .arrow {
+        color: var(--text-faint);
+        font-family: var(--font-mono);
+      }
+
+      /* --- Grids --- */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      /* --- Inline TOC --- */
+      .toc {
+        background: var(--surface-raised);
+        border: 2px solid var(--text);
+        border-left: 6px solid var(--accent);
+        padding: 1rem 1.3rem;
+        margin: 1rem 0 1.5rem;
+      }
+      .toc h3 {
+        margin-bottom: 0.5rem;
+      }
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+      .toc li {
+        margin: 0.25rem 0;
+      }
+      .toc a {
+        color: var(--text);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+      .toc a:hover {
+        color: var(--accent);
+      }
+
+      /* --- Migration / numbered steps --- */
+      .migration-step {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 1rem;
+        margin: 1rem 0;
+        padding: 1.1rem;
+        background: var(--surface-raised);
+        border: 2px solid var(--text);
+        border-left: 6px solid var(--accent);
+      }
+      .migration-num {
+        font-family: var(--font-mono);
+        font-weight: 900;
+        font-size: 1.8rem;
+        color: var(--accent);
+        line-height: 1;
+      }
+      .migration-content h4 {
+        margin-bottom: 0.2rem;
+      }
+      .migration-content p {
+        margin-bottom: 0;
+        color: var(--text-muted);
+        font-size: 0.94rem;
+      }
+
+      /* --- Before/After comparison --- */
+      .compare-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin: 1rem 0 0.5rem;
+      }
+      .compare-before,
+      .compare-after {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.4rem 0.7rem;
+        color: var(--surface);
+      }
+      .compare-before {
+        background: var(--problem);
+      }
+      .compare-after {
+        background: var(--solution);
+      }
+      .compare-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .compare-row pre {
+        margin: 0;
+      }
+
+      /* --- Footer --- */
+      .footer {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 3px solid var(--text);
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+      }
+
+      /* --- Responsive --- */
+      @media (min-width: 1024px) {
+        .sidebar {
+          display: block;
+        }
+      }
+      @media (max-width: 768px) {
+        .layout {
+          flex-direction: column;
+          padding: 1rem;
+        }
+        .top-bar {
+          padding: 0.6rem 1rem;
+          flex-wrap: wrap;
+          gap: 0.3rem;
+        }
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .compare-header,
+        .compare-row {
+          grid-template-columns: 1fr;
+        }
+        .scorecard,
+        .stat-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .score-card:nth-child(2),
+        .stat-card:nth-child(2) {
+          border-right: none;
+        }
+        .score-card:nth-child(1),
+        .stat-card:nth-child(1),
+        .score-card:nth-child(2),
+        .stat-card:nth-child(2) {
+          border-bottom: 3px solid var(--text);
+        }
+        .migration-step {
+          grid-template-columns: 1fr;
+        }
+        .hero-shapes {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Full-bleed top bar -->
+    <div class="top-bar">
+      <span>DEEP RESEARCH REPORT</span>
+      <span>2026-11-18</span>
+      <span>reports · compliance research series</span>
+    </div>
+
+    <div class="layout">
+      <!-- Sidebar TOC (hidden below 1024px) -->
+      <aside class="sidebar" data-nav>
+        <nav>
+          <div class="label">Contents</div>
+          <a href="#verdict">The answer</a>
+          <a href="#regimes">Regimes at a glance</a>
+          <a href="#sox">SOX deep dive</a>
+          <a href="#cra">CRA deep dive</a>
+          <a href="#overlap">Where they overlap</a>
+          <a href="#commercial">Commercial software</a>
+          <a href="#oss">Open source software</a>
+          <a href="#stacks">Two stacks</a>
+          <a href="#choose">Choose by situation</a>
+          <a href="#risks">Risk radar</a>
+          <a href="#method">Method and sources</a>
+          <a href="#annexa">Appendix A: Annex I verbatim</a>
+          <a href="#appendix">What I could not verify</a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <main class="main">
+        <!-- Hero -->
+        <header class="hero">
+          <div class="hero-shapes">
+            <div class="bar"></div>
+            <div class="circle"></div>
+            <div class="square"></div>
+            <div class="tri"></div>
+          </div>
+          <div class="eyebrow">REGULATION RESEARCH &middot; 2026-11-18</div>
+          <h1>SOX and the Cyber&nbsp;Resilience Act</h1>
+          <p class="subtitle">
+            One law audits the financial reporting of US-listed companies; the
+            other gates EU market access for anything with digital elements.
+            What each regime actually requires as of 18 November 2026, where
+            their controls overlap, and the software &mdash; open source and
+            commercial &mdash; that carries the compliance load.
+          </p>
+          <div class="meta">
+            <span class="tag amber"
+              >Scope: 15 U.S.C. ch. 98 + Regulation (EU) 2024/2847</span
+            >
+            <span class="tag">Sources: official texts, read 2026-11-18</span>
+            <span class="tag teal">Status: final</span>
+          </div>
+        </header>
+
+        <!-- Scorecard -->
+        <section id="stats" class="scorecard">
+          <div class="score-card">
+            <div class="score">2002</div>
+            <div class="label">SOX enacted (Pub. L. 107-204)</div>
+          </div>
+          <div class="score-card score-warn">
+            <div class="score">2024</div>
+            <div class="label">CRA in force (10 Dec)</div>
+          </div>
+          <div class="score-card score-bad">
+            <div class="score">24h</div>
+            <div class="label">
+              CRA early-warning clock, live since 11 Sep 2026
+            </div>
+          </div>
+          <div class="score-card">
+            <div class="score">388</div>
+            <div class="label">
+              Days until CRA full application (11 Dec 2027)
+            </div>
+          </div>
+        </section>
+
+        <!-- 00 Verdict -->
+        <section id="verdict">
+          <h2><span class="num">00</span>The answer, in one page</h2>
+          <p>
+            <strong>Sarbanes-Oxley (2002)</strong> and the
+            <strong>Cyber Resilience Act (Regulation (EU) 2024/2847)</strong>
+            solve different problems with different machinery. SOX protects the
+            <em>truthfulness of financial reporting</em>: it binds issuers
+            listed on US markets, makes CEOs and CFOs certify controls
+            personally, and backs failure with prison time (&sect;802: up to 20
+            years). The CRA protects the <em>cybersecurity of products</em>: it
+            binds anyone who makes software or hardware "with digital elements"
+            available on the EU market &mdash; US companies included &mdash; and
+            backs failure with fines up to &euro;15&nbsp;million or 2.5% of
+            worldwide turnover, plus withdrawal of CE marking, plus &mdash;
+            uniquely &mdash; a 24-hour regulator notification clock that has
+            already been running since <strong>11 September 2026</strong>.
+          </p>
+          <p>
+            The regimes do not conflict; they interlock. A US-listed software
+            vendor selling into the EU answers to both, and roughly two-thirds
+            of the underlying control work &mdash; change management, access
+            management, vulnerability handling, monitoring, evidence retention
+            &mdash; is the same control fabric serving two reporting formats.
+            Build the fabric once; map it twice.
+          </p>
+          <div class="callout callout-amber">
+            <strong>The bottom line</strong>
+            The urgent one is the CRA, and the most expensive misunderstanding
+            in the market is "we have until December 2027". Reporting duties
+            (Art 14) have applied since 11 September 2026, to all products made
+            available on the EU market including ones placed there
+            <em>before</em> the full application date &mdash; so a shipped
+            product with an actively exploited vulnerability starts a 24-hour
+            early-warning clock today. Meanwhile the CRA's harmonised-standards
+            machinery is behind schedule (the standardisation request was
+            extended by three months on 10 November 2026), which means early
+            movers self-assess against Annex I directly while everyone else
+            waits for standards that will arrive late.
+          </div>
+          <p>
+            For software buyers: SOX tooling is a mature, consolidated market
+            (ServiceNow, Workiva, AuditBoard, SAP GRC at the top; Drata/Vanta
+            compressing the mid-market), and the open source side has quietly
+            become capable enough to run the whole ICFR evidence pipeline
+            (Wazuh, ComplianceAsCode, InSpec, Gitea/GitLab CE, Teleport). CRA
+            tooling is younger: the SBOM/SCA segment (Syft, Trivy, OSV-Scanner
+            &mdash; OSS; Snyk, Black Duck, FOSSA &mdash; commercial) covers the
+            technical spine, but nobody fully productises "Annex I conformity"
+            yet, because the standards themselves are still being written.
+          </p>
+        </section>
+
+        <!-- 01 Regimes at a glance -->
+        <section id="regimes">
+          <h2><span class="num">01</span>The two regimes at a glance</h2>
+          <p>
+            Same century, different theory of regulation. SOX is a
+            disclosure-and-attestation law: government sets the duty to certify,
+            the market (auditors, investors) polices the content. The CRA is a
+            product-safety law grafted onto the New Legislative Framework:
+            government sets essential requirements, CE marking signals
+            conformity, market surveillance authorities can pull products off
+            the Union market.
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Sarbanes-Oxley Act (SOX)</th>
+                <th>Cyber Resilience Act (CRA)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Legal instrument</strong></td>
+                <td>
+                  Pub. L. 107-204, 30 July 2002 (codified across 15 and 18
+                  U.S.C.)
+                </td>
+                <td>
+                  Regulation (EU) 2024/2847, signed 23 Oct 2024, in force 10 Dec
+                  2024
+                </td>
+              </tr>
+              <tr>
+                <td><strong>What it protects</strong></td>
+                <td>
+                  Integrity of financial reporting (ICFR) and audit trails
+                </td>
+                <td>
+                  Cybersecurity of "products with digital elements" across their
+                  lifecycle
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Who is bound</strong></td>
+                <td>
+                  Issuers filing with the SEC (incl. foreign private issuers),
+                  their officers, audit firms (via PCAOB)
+                </td>
+                <td>
+                  Manufacturers, importers, distributors, authorised
+                  representatives &mdash; any economic operator making covered
+                  products available on the EU market, wherever domiciled
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Trigger</strong></td>
+                <td>US listing / SEC registration status</td>
+                <td>
+                  Market access: supplying a connected digital product in the EU
+                  in a commercial activity
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Core obligations</strong></td>
+                <td>
+                  CEO/CFO certifications (&sect;&sect;302, 906), management ICFR
+                  assessment (&sect;404(a)), auditor attestation (&sect;404(b)),
+                  record preservation (&sect;802)
+                </td>
+                <td>
+                  Essential cybersecurity requirements (Annex I), risk
+                  assessment + technical documentation (Art 13), vulnerability
+                  handling, support period, CE marking, 24h/72h incident &amp;
+                  vulnerability reporting (Art 14)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Enforcer</strong></td>
+                <td>SEC (civil), DOJ (criminal), PCAOB (audit firms)</td>
+                <td>
+                  National market surveillance authorities + CSIRTs, coordinated
+                  via ENISA and an ADCO group
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Maximum penalty</strong></td>
+                <td>
+                  Personal: up to 20 years imprisonment, $5M fine (&sect;906
+                  willful); &sect;802 up to 20 years for destroying records
+                </td>
+                <td>
+                  Corporate: &euro;15M or 2.5% worldwide turnover (essential
+                  requirements, Arts 13/14); &euro;10M or 2% (other
+                  obligations); &euro;5M or 1% (misleading authorities)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Reference frameworks</strong></td>
+                <td>
+                  COSO 2013 (ICFR), COBIT 2019 (ITGC), PCAOB AS 2201 (top-down
+                  risk-based audit)
+                </td>
+                <td>
+                  Annex I essential requirements; harmonised standards under
+                  request M/606 (in progress); EN 18031 series currently cited
+                  for the RED, not the CRA
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Maturity</strong></td>
+                <td class="yes">
+                  24 years of practice; stable, audited annually
+                </td>
+                <td class="no">
+                  Reporting live since Sep 2026; main obligations 11 Dec 2027;
+                  standards late
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <strong>Three structural differences that matter</strong>
+            (1) SOX bites individuals (officers sign, officers go to prison);
+            the CRA bites products (CE marking can be withdrawn, products
+            recalled). (2) SOX is scoped by <em>who you are</em> (an issuer);
+            the CRA by <em>what you sell where</em> (a connected product in the
+            EU). (3) SOX runs on an annual audit rhythm; the CRA runs on an
+            event rhythm &mdash; the 24-hour clock starts when you become aware,
+            not when the fiscal year ends.
+          </div>
+        </section>
+
+        <!-- 02 SOX deep dive -->
+        <section id="sox">
+          <h2><span class="num">02</span>SOX: what the law actually says</h2>
+          <p>
+            Passed after Enron and WorldCom, the Sarbanes-Oxley Act of 2002
+            (Pub. L. 107-204, 30 July 2002) rewired US capital markets: it
+            created the PCAOB to inspect auditors, made officers personally
+            certify reports, and criminalised record destruction. Two decades
+            later it is the most rehearsed compliance exercise in software
+            companies' calendars. The sections that shape daily engineering
+            practice:
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>Codified</th>
+                <th>What it requires (verified against the US Code)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>&sect;302</strong></td>
+                <td>15 U.S.C. &sect;7241</td>
+                <td>
+                  CEO/CFO certify in <em>every</em> periodic report: they
+                  reviewed it; no material misstatements; internal controls
+                  established, designed, evaluated within 90 days; all
+                  significant deficiencies, material weaknesses and fraud
+                  disclosed to auditors and the audit committee; subsequent
+                  changes reported.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>&sect;404(a)</strong></td>
+                <td>15 U.S.C. &sect;7262(a)</td>
+                <td>
+                  Annual internal control report: management states
+                  responsibility for ICFR and assesses its effectiveness as of
+                  fiscal year end. Applies to <em>all</em> reporting issuers.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>&sect;404(b)</strong></td>
+                <td>15 U.S.C. &sect;7262(b)-(c)</td>
+                <td>
+                  The auditor attests to management's assessment. Exempt:
+                  emerging growth companies, and issuers that are neither large
+                  accelerated nor accelerated filers (i.e. float under $75M or
+                  SRC-eligible).
+                </td>
+              </tr>
+              <tr>
+                <td><strong>&sect;409</strong></td>
+                <td>15 U.S.C. &sect;78m(l)</td>
+                <td>
+                  Real-time disclosure: material changes in financial condition
+                  or operations on Form 8-K "rapidly and current"; material
+                  cybersecurity incidents have had their own line item &mdash;
+                  <strong>Item 1.05, Cybersecurity Incidents</strong> &mdash;
+                  since December 2023, with the default four-business-day 8-K
+                  clock.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>&sect;802</strong></td>
+                <td>18 U.S.C. &sect;1519 (&sect;1520)</td>
+                <td>
+                  Knowingly altering, destroying or falsifying records with
+                  intent to obstruct: fined and imprisoned
+                  <strong>up to 20 years</strong>. Companion &sect;1520: audit
+                  workpapers retained 5 years.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>&sect;906</strong></td>
+                <td>18 U.S.C. &sect;1350</td>
+                <td>
+                  Criminal certification liability: knowing violation up to $1M
+                  / 10 years; willful up to <strong>$5M / 20 years</strong>.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Who actually needs an auditor-clean ICFR: the filer ladder</h3>
+          <p>
+            From SEC Rule 12b-2 (17 CFR 240.12b-2), read on the report date. The
+            ladder decides &sect;404(b) applicability and filing deadlines; note
+            the deliberate hysteresis (enter at $75M, exit only below $60M):
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Public float (non-affiliate)</th>
+                <th>&sect;404(b) auditor attestation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Non-accelerated filer</td>
+                <td>&lt; $75M (or SRC-eligible under the revenue test)</td>
+                <td class="no">Exempt</td>
+              </tr>
+              <tr>
+                <td>Accelerated filer</td>
+                <td>$75M &ndash; &lt;$700M</td>
+                <td class="yes">Required</td>
+              </tr>
+              <tr>
+                <td>Large accelerated filer</td>
+                <td>&ge; $700M</td>
+                <td class="yes">Required</td>
+              </tr>
+              <tr>
+                <td>Emerging growth company (JOBS Act)</td>
+                <td>Revenues &lt; $1.235B, up to 5 years post-IPO</td>
+                <td class="no">Exempt (15 U.S.C. &sect;7262(b))</td>
+              </tr>
+              <tr>
+                <td>Smaller reporting company</td>
+                <td>
+                  Float &lt; $250M, or revenues &lt; $100M + float &lt; $700M
+                </td>
+                <td class="no">Exempt via non-accelerated status</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>The machine under the certifications: ICFR and ITGC</h3>
+          <p>
+            Everything funnels into
+            <em>internal control over financial reporting</em>. The CFR defines
+            the two failure states auditors escalate: a
+            <strong>significant deficiency</strong> ("less severe than a
+            material weakness yet important enough to merit attention by those
+            responsible for oversight") and a
+            <strong>material weakness</strong> ("a reasonable possibility that a
+            material misstatement &hellip; will not be prevented or detected on
+            a timely basis"). A material weakness means an adverse ICFR opinion,
+            an amended &sect;404 disclosure, and a very bad quarter.
+          </p>
+          <p>
+            Because books live in software, auditors test IT general controls
+            &mdash; the four classic domains, unchanged in practice for two
+            decades:
+          </p>
+          <div class="dep-tree">
+            ITGC ├── Access to programs and data who has privileged access,
+            provisioning, │ deprovisioning, periodic user access reviews ├──
+            Program changes change control: ticket → approval → test → │
+            segregation of duties → production deploy ├── Program development
+            SDLC discipline for new systems feeding the │ financial statements
+            └── Computer operations batch jobs, backups, incident handling,
+            interface/Job evidence, environment mgmt
+          </div>
+          <p>
+            Management designs against
+            <strong
+              >COSO's 2013 Internal Control &mdash; Integrated Framework</strong
+            >
+            (ICIF-2013 &mdash; verified operative on coso.org at the report
+            date, now surrounded by supplemental guidance:
+            <em>Achieving Effective Internal Control over Generative AI</em>
+            (2026), the second-edition <em>Fraud Risk Management Guide</em>, and
+            <em>Managing Cyber Risk in a Digital Age</em>; five components:
+            control environment, risk assessment, control activities,
+            information and communication, monitoring); IT audit maps COBIT
+            objectives onto those components &mdash;
+            <strong>COBIT 2019</strong> is the current edition (ISACA's
+            credential catalogue still sells "COBIT 19 Foundation" and "COBIT
+            2019 Design &amp; Implementation"). The external auditor works
+            top-down and risk-based: identify significant accounts, map key
+            controls, test entity-level then ITGC then application controls, and
+            escalate deficiencies by likelihood times magnitude.
+          </p>
+          <h3>What the auditor is actually reading in 2026</h3>
+          <p>
+            The PCAOB's standards list (read via an Internet Archive capture of
+            pcaobus.org dated 31 October 2026) shows the current regime for
+            audits of fiscal years beginning on or after 15 December 2025:
+            <strong
+              >AS 1000, "General Responsibilities of the Auditor in Conducting
+              an Audit"</strong
+            >, is the consolidated general standard, and
+            <strong
+              >AS 2201, "An Audit of Internal Control Over Financial Reporting
+              That Is Integrated with An Audit of Financial Statements"</strong
+            >, remains the operative integrated-ICFR standard &mdash; the
+            top-down, risk-based approach above is its method. The same page
+            notes further amendments to auditing standards effective 15 December
+            2026, i.e. landing mid-compliance- season for calendar-year issuers.
+            For &sect;302 purposes, the SEC adopted the certifications rules as
+            Item 307/308 of Regulation S-K; a cybersecurity incident that is
+            material to investors now has its own 8-K item.
+          </p>
+          <div class="callout callout-teal">
+            <strong>The ITGC-to-SCA translation</strong>
+            Notice what the four ITGC domains actually are: change control,
+            access control, secure development, and operational monitoring. That
+            is the same control vocabulary the CRA's Annex I uses for products.
+            The overlap section (&sect;04) exploits exactly this.
+          </div>
+        </section>
+
+        <!-- 03 CRA deep dive -->
+        <section id="cra">
+          <h2>
+            <span class="num">03</span>CRA: the clock that is already running
+          </h2>
+          <p>
+            Regulation (EU) 2024/2847 &mdash; signed at Strasbourg on 23 October
+            2024, published in the OJ on 20 November 2024, in force
+            <strong>10 December 2024</strong> &mdash; applies to any software or
+            hardware product "with digital elements" whose intended purpose or
+            reasonably foreseeable use includes a connection to a device or
+            network, when made available on the Union market in a commercial
+            activity. "Manufacturer" means whoever places it under their own
+            name or trademark, "whether for payment, monetisation or free of
+            charge". Services are not excluded by an Article but by scope
+            mechanics: recital 12 confirms cloud service models &mdash; SaaS,
+            PaaS, IaaS &mdash; stay under Directive (EU) 2022/2555 (NIS2), while
+            a product's own "remote data processing solutions" (Art 3(2)) travel
+            with the product into the CRA. Embedded products, downloadable
+            software and their separately-placed components are in.
+          </p>
+
+          <h3>The timeline, with what already happened</h3>
+          <div class="dep-tree">
+            CRA timeline (status on 2026-11-18) 10 Dec 2024 in force [ok] 29 Jul
+            2025 Delegated Reg (EU) 2025/1535 - scope carve-out (168/2013
+            vehicles) 11 Dec 2025 Delegated act on CSIRT dissemination grounds
+            (CELEX 32026R0881) 28 Nov 2025 Implementing Reg (EU) 2025/2392 -
+            Annex III/IV technical descriptions 11 Jun 2026 Chapter IV applies:
+            notifying authorities + notified bodies [ok] 11 Sep 2026 Art 14
+            reporting LIVE - ENISA Single Reporting Platform (SRP) launched [ok]
+            27 Jul 2026 Commission Art-26 implementation guidance published 10
+            Nov 2026 Standardisation request M/606 amended: +3 months for
+            verticals [warn] 11 Dec 2026 Milestone: sufficient conformity
+            assessment bodies notified 11 Dec 2027 FULL APPLICATION - essential
+            requirements, CE marking, Art 24 stewards 11 Jun 2028 Legacy EU
+            type-exam certificates expire
+          </div>
+
+          <h3>What manufacturers must do (Art 13 + Annex I)</h3>
+          <p>
+            Annex I has two parts &mdash; <strong>Part I</strong>, product
+            properties (13 lettered requirements, from "without known
+            exploitable vulnerabilities" to secure-by-default, data protection,
+            attack-surface minimisation and monitoring;
+            <a href="#annexa">verbatim in Appendix A</a>) and
+            <strong>Part II</strong>, the vulnerability-handling process (8
+            requirements, SBOM included). Article 13 wraps them: a documented
+            <em>cybersecurity risk assessment</em> across the lifecycle
+            (13(2)&ndash;(3)); due diligence so integrated third-party and open
+            source components do not compromise the product (13(5)); reporting
+            vulnerabilities upstream when they come from a component supplier
+            (13(6)); a defined <strong>support period</strong> &mdash;
+            <strong>at least five years</strong>, or the expected use time if
+            shorter (13(8) third subparagraph) &mdash; with its end date, month
+            and year, clearly specified at purchase and an end-of-support
+            notification displayed where technically feasible (13(19));
+            technical documentation and the EU declaration of conformity kept
+            for authorities for <strong>at least 10 years</strong> after placing
+            on the market or the support period, whichever is longer (13(13));
+            CE marking per Annex V before placing on the market.
+          </p>
+
+          <h3>The reporting clock (Art 14, live since 11 September 2026)</h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Deadline</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Early warning</td>
+                <td class="no">24 h after awareness</td>
+                <td>Actively exploited vulnerability or severe incident</td>
+              </tr>
+              <tr>
+                <td>Main notification</td>
+                <td class="no">72 h</td>
+                <td>
+                  Fuller detail to the CSIRT of the main-establishment Member
+                  State, via ENISA's SRP
+                </td>
+              </tr>
+              <tr>
+                <td>Final report (vulnerability)</td>
+                <td>14 days after corrective measure available</td>
+                <td>--</td>
+              </tr>
+              <tr>
+                <td>Final report (incident)</td>
+                <td>1 month after the 72 h notification</td>
+                <td>--</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Three traps. First, scope: reporting applies to
+            <em>all</em> in-scope products made available on the EU market,
+            including those placed before 11 December 2027 (Art 69(3)) &mdash;
+            legacy shipped software is inside the clock. Second, the exemption
+            that isn't: micro and small enterprises cannot be <em>fined</em> for
+            missing the 24-hour deadline, but they still must report. Third,
+            reporting runs through one place only: the CRA Single Reporting
+            Platform (portal.cra-srp.enisa.europa.eu), operational since 11
+            September 2026, upgraded to version 1.4 on 17 November 2026.
+            Voluntary reports (any person, near-misses included) use the same
+            platform.
+          </p>
+          <p>
+            The ecosystem around the clock is already exercising: on 21 October
+            2026 the European Commission, ENISA, CERT-EU, Europol EC3 and the EU
+            CSIRTs network issued a joint statement advising immediate action on
+            critical PHP vulnerabilities &mdash; the exact multi-authority
+            coordination shape the CRA institutionalises. On the intelligence
+            side, ENISA's EU Vulnerability Database (EUVD, listed in ENISA's
+            tools catalogue since 13 May 2025) aggregates EU CSIRT and vendor
+            advisories, the EU KEV catalogue and CISA KEV, and is fed by ENISA's
+            roles as a CVE partner &mdash; a CNA since January 2024 and a CVE
+            Root since 20 November 2025.
+          </p>
+
+          <h3>
+            Product classes and conformity routes (Annex III / IV, Art 32)
+          </h3>
+          <p>
+            The class counts matter more than the examples:
+            <strong
+              >Annex III Class I has exactly 19 categories, Class II exactly 4,
+              and Annex IV exactly 3</strong
+            >
+            &mdash; all listed verbatim in <a href="#annexa">Appendix A</a>. Two
+            definitions decide your reporting and re-assessment triggers (Art 3,
+            verbatim): an <em>actively exploited vulnerability</em> is one "for
+            which there is reliable evidence that a malicious actor has
+            exploited it in a system without permission of the system owner"
+            (Art 3(42)); a <em>substantial modification</em> is a change that
+            affects Annex I compliance or the assessed intended purpose (Art
+            3(30)) &mdash; only substantially modified legacy products re-enter
+            full CRA obligations. "Severe incident" carries no Art 3 definition;
+            recital 68 scopes it to incidents affecting the manufacturer's own
+            development, production or maintenance processes &mdash; the
+            canonical example being an attacker introducing malicious code into
+            the release channel for security updates.
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Categories (full lists in Appendix A)</th>
+                <th>Conformity route</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Default (all other PDE)</td>
+                <td>Mobile apps, games, smart speakers, memory chips</td>
+                <td>Self-assessment (internal control, module A)</td>
+              </tr>
+              <tr>
+                <td>Important, Class I (Annex III) &mdash; 19 categories</td>
+                <td>
+                  Operating systems, browsers, password managers, VPNs, SIEM,
+                  network management, routers/modems, boot managers, PKI
+                  issuance, identity/PAM systems, security-grade chips,
+                  smart-home devices, connected toys, wearables
+                </td>
+                <td>
+                  Module A allowed <em>only</em> if harmonised standards /
+                  common specs / EU certification applied; otherwise EU-type
+                  exam (B+C) or full quality assurance (H) with a notified body
+                </td>
+              </tr>
+              <tr>
+                <td>Important, Class II (Annex III) &mdash; 4 categories</td>
+                <td>
+                  Hypervisors and container runtime systems; firewalls and
+                  intrusion detection/prevention systems; tamper-resistant
+                  microprocessors; tamper-resistant microcontrollers
+                </td>
+                <td class="no">Third party always (B+C or H)</td>
+              </tr>
+              <tr>
+                <td>Critical (Annex IV) &mdash; 3 categories</td>
+                <td>
+                  Hardware devices with security boxes; smart-meter gateways and
+                  other devices for advanced security purposes incl. secure
+                  cryptoprocessing; smartcards and similar devices incl. secure
+                  elements
+                </td>
+                <td class="no">
+                  Third party always; EU certification at 'substantial' level
+                  where a delegated act mandates it
+                </td>
+              </tr>
+              <tr>
+                <td>FOSS in Annex III classes</td>
+                <td>Open source important products</td>
+                <td class="yes">
+                  Self-assessment permitted if technical documentation is made
+                  public (Art 32(5))
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Category boundaries are drawn precisely by Implementing Regulation
+            (EU) 2025/2392 of 28 November 2025. Notified bodies have been
+            notifiable since 11 June 2026 (Member States had to designate
+            notifying authorities by then); ENISA has published technical
+            competence requirements for them, and the Commission's
+            implementation milestone expects a sufficient number notified by 11
+            December 2026.
+          </p>
+
+          <h3>Free and open source software: the steward deal</h3>
+          <p>
+            The CRA's FOSS settlement, confirmed on the Commission's own open
+            source page (updated 15 October 2026): FOSS is in scope only when
+            <em>made available on the market</em> &mdash; supplied in a
+            commercial activity; unmonetised publication is not commercial, and
+            individual contributors are never responsible. A new legal category,
+            the <strong>open source software steward</strong>
+            (Art 24), captures legal persons that systematically sustain
+            development of FOSS intended for commercial activities: stewards
+            must run a public cybersecurity policy for secure development and
+            vulnerability handling, cooperate with authorities, and report (Art
+            24(3) applies selected Art 14 duties from 11 December 2027) &mdash;
+            but stewards are exempt from administrative fines (Art 64(10)).
+            Community resources the Commission itself links: the OpenChain CRA
+            checklist, the Open Regulatory Compliance Working Group (orcwg.org),
+            OpenSSF's CRA course, and OSI's standards work.
+          </p>
+
+          <h3>Standards: the machinery is late</h3>
+          <p>
+            Presumption of conformity (Art 27) requires harmonised standards
+            cited in the OJEU. The standardisation request
+            <strong>M/606</strong> (Commission document C(2025)618) commissions
+            41 standards &mdash; 15 horizontal (including vulnerability
+            handling) and 26 vertical, product-specific ones. On
+            <strong>10 November 2026</strong> the request was amended
+            (Commission document C(2026)7861) to extend delivery deadlines for
+            all vertical and some horizontal standards by three months &mdash; a
+            public admission that the standards layer will not be finished as
+            the December 2027 application date approaches. Related but distinct:
+            the <strong>EN 18031</strong>
+            series is currently cited in the OJEU for the Radio Equipment
+            Directive's cybersecurity requirements (Delegated Regulation (EU)
+            2022/30), not for the CRA; the Commission's FAQ notes it intends the
+            CRA to take over those radio-equipment requirements from 11 December
+            2027. Products certified under other schemes keep their certificates
+            only until 11 June 2028.
+          </p>
+
+          <h3>Penalties (Art 64, verbatim tiers from the OJ text)</h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Infringement</th>
+                <th>Maximum fine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Annex I essential requirements; Art 13 manufacturer
+                  obligations; Art 14 reporting
+                </td>
+                <td class="no">
+                  &euro;15,000,000 or 2.5% of total worldwide annual turnover,
+                  whichever is higher
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Importer/distributor and other operator obligations (Arts
+                  18&ndash;23, 28, 30&ndash;33, 39, 41, 47, 49, 53)
+                </td>
+                <td class="no">&euro;10,000,000 or 2% of worldwide turnover</td>
+              </tr>
+              <tr>
+                <td>
+                  Incorrect, incomplete or misleading information to notified
+                  bodies or market surveillance authorities
+                </td>
+                <td class="no">&euro;5,000,000 or 1% of worldwide turnover</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 04 Overlap -->
+        <section id="overlap">
+          <h2>
+            <span class="num">04</span>Where they overlap: one control fabric
+          </h2>
+          <p>
+            For a US-listed company that ships software into the EU (and that is
+            most enterprise software companies), the two regimes draw on the
+            same underlying capabilities. The mapping below is the practical
+            core of this report &mdash; each row is one investment that
+            satisfies both regulators:
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Control fabric</th>
+                <th>SOX anchor</th>
+                <th>CRA anchor</th>
+                <th>Shared evidence artifact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Change management</td>
+                <td>
+                  ITGC "program changes": ticket, approval, test, SoD, deploy
+                </td>
+                <td>
+                  Annex I secure development; Art 13 lifecycle risk assessment
+                </td>
+                <td>Merge request + CI pipeline + approval log (immutable)</td>
+              </tr>
+              <tr>
+                <td>Access management</td>
+                <td>
+                  ITGC "access to programs and data"; quarterly user access
+                  reviews
+                </td>
+                <td>
+                  Not directly regulated &mdash; but every CRA control assumes
+                  it
+                </td>
+                <td>IdP joiner/mover/leaver log; access review sign-off</td>
+              </tr>
+              <tr>
+                <td>Vulnerability &amp; patch handling</td>
+                <td>
+                  ITGC operations; ICFR monitoring (unpatched fin systems =
+                  deficiency)
+                </td>
+                <td>Annex I Part II; Art 13(5)&ndash;(6); Art 14 reporting</td>
+                <td>
+                  Scanner output triaged to SLA; SBOM + VEX; disclosure log
+                </td>
+              </tr>
+              <tr>
+                <td>Incident response</td>
+                <td>
+                  &sect;409 rapid 8-K disclosure; &sect;302 disclosure controls
+                </td>
+                <td>Art 14: 24h/72h via ENISA SRP</td>
+                <td>
+                  Single incident register with dual-report triggers (CSIRT vs
+                  8-K)
+                </td>
+              </tr>
+              <tr>
+                <td>Third-party / supply chain</td>
+                <td>Vendor management control; SoD in outsourced processes</td>
+                <td>Art 13(5) component due diligence; SBOM obligations</td>
+                <td>Component inventory (SBOM) + vendor security assessment</td>
+              </tr>
+              <tr>
+                <td>Records &amp; evidence retention</td>
+                <td>
+                  &sect;802: obstruction criminalised; audit workpapers 5 years
+                </td>
+                <td>
+                  Technical documentation + EU declaration of conformity kept
+                  for authorities &ge; 10 years after placing on the market or
+                  the support period, whichever is longer (Art 13(13))
+                </td>
+                <td>
+                  WORM-ish evidence store with retention policy per artifact
+                  class
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout callout-teal">
+            <strong>What does NOT transfer</strong>
+            SOX cares about <em>assertions about financial statements</em>
+            (completeness, accuracy, existence); the CRA cares about
+            <em>properties of a product</em> (attack surface, update mechanism,
+            support period). You cannot reuse a SOX control conclusion as CRA
+            conformity, and an ICFR opinion says nothing about CE marking. The
+            fabric is shared; the attestations are separate documents with
+            separate owners.
+          </div>
+        </section>
+
+        <!-- 05 Commercial software -->
+        <section id="commercial">
+          <h2><span class="num">05</span>Commercial software landscape</h2>
+          <p>
+            Two markets with one seam. The SOX/GRC market is consolidated and
+            priced opaquely; the CRA-side market is younger and grows out of
+            SCA/SBOM tooling. A word on verification method, tested on the
+            report date: enterprise GRC vendor sites (ServiceNow, Workiva,
+            AuditBoard, StandardFusion tested) bot-block automated fetching
+            (403s / stream errors), so those capability rows are analyst
+            knowledge to validate with your account team &mdash; the CRA-side
+            and open source rows were verified against reachable vendor pages
+            and project repositories. "Sales wall" means no public price exists.
+          </p>
+
+          <h3>SOX / ICFR / GRC platforms</h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Product (vendor)</th>
+                <th>SOX-relevant capability</th>
+                <th>Segment / pricing signal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  ServiceNow IRM / GRC
+                  <span class="badge badge-fixed">Enterprise pick</span>
+                </td>
+                <td>
+                  Full ICFR lifecycle: risk &amp; control libraries, SOX program
+                  management, assessments, audit management; CCM add-ons
+                </td>
+                <td>Large enterprise; quote-only</td>
+              </tr>
+              <tr>
+                <td>Workiva</td>
+                <td>
+                  SOX-native: 404 certifications, controls, testing tied to SEC
+                  filing workflow (10-K/10-Q in the same platform)
+                </td>
+                <td>Enterprise; priced per workspace, sales wall</td>
+              </tr>
+              <tr>
+                <td>AuditBoard</td>
+                <td>
+                  Audit-team-first SOX automation: walkthroughs, control
+                  testing, issue remediation; strong internal-audit adoption
+                </td>
+                <td>Mid-to-large; sales wall</td>
+              </tr>
+              <tr>
+                <td>Diligent (HighBond)</td>
+                <td>
+                  Board-to-control GRC: SOX module, quantitative risk,
+                  integrations to audit
+                </td>
+                <td>Enterprise; sales wall</td>
+              </tr>
+              <tr>
+                <td>
+                  SAP GRC (Access Control / Process Control)
+                  <span class="badge badge-fixed">ERP SoD pick</span>
+                </td>
+                <td>
+                  Segregation-of-duties rulesets for ERP roles, emergency-access
+                  (firefighter), automated control testing inside SAP
+                </td>
+                <td>SAP estates; licence + implementation</td>
+              </tr>
+              <tr>
+                <td>
+                  IBM OpenPages / MetricStream / Reciprocity / LogicGate /
+                  StandardFusion
+                </td>
+                <td>
+                  General GRC platforms with ICFR modules; StandardFusion is the
+                  mid-market value option
+                </td>
+                <td>Enterprise to mid-market; sales wall</td>
+              </tr>
+              <tr>
+                <td>Pathlock</td>
+                <td>
+                  Continuous controls monitoring + SoD across ERP landscape
+                  (SAP, Oracle, NetSuite)
+                </td>
+                <td>ERP-heavy mid/large; sales wall</td>
+              </tr>
+              <tr>
+                <td>
+                  SailPoint / Saviynt
+                  <span class="badge badge-fixed">UAR pick</span>
+                </td>
+                <td>
+                  Identity governance: automated user access
+                  reviews/certifications, role mining, SoD policy engines
+                  &mdash; directly automates the hardest ITGC
+                </td>
+                <td>Enterprise IAM; per-identity pricing, sales wall</td>
+              </tr>
+              <tr>
+                <td>CyberArk / BeyondTrust</td>
+                <td>
+                  Privileged access management: vaulting, session recording,
+                  just-in-time elevation &mdash; auditor evidence for privileged
+                  access
+                </td>
+                <td>Enterprise; sales wall</td>
+              </tr>
+              <tr>
+                <td>
+                  Vanta / Drata / Secureframe / Scrut / Thoropass
+                  <span class="badge badge-fixed">Mid-market automation</span>
+                </td>
+                <td>
+                  Compliance automation: continuous control monitoring, evidence
+                  collection, auditor marketplaces; SOC&nbsp;2-first but now
+                  SOX-adjacent (ITGC evidence, access reviews)
+                </td>
+                <td>
+                  Startups/mid-market; tiers exist but are sales-quoted or
+                  JS-rendered (Vanta's pricing page renders no machine-readable
+                  prices; Drata 403s automated fetch) &mdash; budget five
+                  figures annually, confirm at quote
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>
+            CRA-side tooling: SBOM, SCA, vulnerability intelligence, conformity
+          </h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Product (vendor)</th>
+                <th>CRA-relevant capability</th>
+                <th>Notes / pricing signal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Snyk
+                  <span class="badge badge-fixed">Developer-first pick</span>
+                </td>
+                <td>
+                  SCA + container + IaC scanning; reachability analysis; SBOM
+                  export; vuln SLA evidence
+                </td>
+                <td>Dev-tier to enterprise; public entry tiers</td>
+              </tr>
+              <tr>
+                <td>Black Duck (ex-Synopsys SIG)</td>
+                <td>
+                  Deepest vulnerability-database lineage (OSS in-house since
+                  2002-era), SCA, snippet matching, audit-grade reports
+                </td>
+                <td>Enterprise; sales wall</td>
+              </tr>
+              <tr>
+                <td>FOSSA / Mend.io / Sonatype</td>
+                <td>
+                  License + vulnerability SCA; Sonatype adds malicious-package
+                  blocking (repository firewall)
+                </td>
+                <td>Mid-to-large; sales wall</td>
+              </tr>
+              <tr>
+                <td>Veracode / JFrog Xray (with Advanced Security)</td>
+                <td>
+                  SAST/DAST + SCA pipelines; Xray ties vuln gating into artifact
+                  repositories
+                </td>
+                <td>Enterprise; sales wall</td>
+              </tr>
+              <tr>
+                <td>Anchore Enterprise</td>
+                <td>
+                  SBOM management built on Syft; policy gates; feeds &mdash;
+                  commercial wrapper of its own OSS
+                </td>
+                <td>Mid-market; sales wall</td>
+              </tr>
+              <tr>
+                <td>
+                  Endor Labs / Socket
+                  <span class="badge badge-fixed">Reachability edge</span>
+                </td>
+                <td>
+                  Reachability-based SCA (cut the noise), malicious-package
+                  detection &mdash; the modern answer to "which of 1,200 CVEs
+                  matter"
+                </td>
+                <td>Scale-ups; sales wall</td>
+              </tr>
+              <tr>
+                <td>Finite State / Sternum / OneKey</td>
+                <td>
+                  Firmware/IoT SBOM extraction and binary analysis for
+                  connected-product conformity (Annex III/IV territory)
+                </td>
+                <td>Device makers; sales wall</td>
+              </tr>
+              <tr>
+                <td>
+                  T&Uuml;V S&Uuml;D / T&Uuml;V Rheinland / DEKRA / Bureau
+                  Veritas / SGS (notified-body track)
+                </td>
+                <td>
+                  CRA/EN-18031-adjacent gap assessments, EU-type examination
+                  (module B), factory audits &mdash; the third-party assessors
+                  Class II/critical products will need
+                </td>
+                <td>
+                  Per-engagement quotes; notified-body status tracked on NANDO
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Vulnerability intelligence: Tenable OSS Index, Sonatype OSS
+                  Index, VulnDB, ENISA EUVD
+                </td>
+                <td>
+                  Feeds to drive Art 13/14 processes; EUVD is ENISA's official
+                  EU vulnerability database (aggregates EU CSIRT advisories + EU
+                  KEV + CISA KEV, will absorb SRP reports)
+                </td>
+                <td>OSS Index free; EUVD free; VulnDB subscription</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout callout-amber">
+            <strong>Reality check on "CRA compliance platforms"</strong>
+            As of the report date, no commercial product can hand you Annex I
+            conformity, because the harmonised standards that define testable
+            conformity are still in development (M/606, extended 10 Nov 2026).
+            What the good products deliver is the <em>evidence layer</em>:
+            SBOMs, scan history, coordinated disclosure records, support period
+            publication, and an incident-to-SRP runbook. Buy that; distrust
+            anyone selling "CRA certification" before the standards and
+            notified-body ecosystem exist.
+          </div>
+        </section>
+
+        <!-- 06 OSS -->
+        <section id="oss">
+          <h2><span class="num">06</span>Open source software landscape</h2>
+          <p>
+            The open source side is genuinely strong here &mdash; strong enough
+            to run both regimes' evidence pipelines end to end. Facts below
+            verified against project repositories and docs on the report date
+            (licenses read from the repos, not marketing pages).
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>License</th>
+                <th>What it carries</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Wazuh</td>
+                <td>GPL-2.0</td>
+                <td>
+                  SIEM/XDR with built-in compliance mappings: PCI DSS, GDPR,
+                  HIPAA, NIST 800-53, TSC. No SOX pack &mdash; map SOX ITGC to
+                  TSC/NIST yourself. The monitoring backbone for both regimes.
+                </td>
+              </tr>
+              <tr>
+                <td>ComplianceAsCode + OpenSCAP</td>
+                <td>BSD-3 / LGPL-2.1</td>
+                <td>
+                  SCAP hardening profiles (CIS, DISA STIG, HIPAA, ANSSI) with
+                  Ansible/Bash remediation scripts; the OS-baseline engine under
+                  ITGC "computer operations".
+                </td>
+              </tr>
+              <tr>
+                <td>Chef InSpec</td>
+                <td>Apache-2.0 source (Chef EULA for packaged builds)</td>
+                <td>
+                  Compliance-as-code: human-readable tests for OS and app
+                  controls; CIS/STIG community profiles (dev-sec). CI-integrated
+                  control testing = walking-through-evidence automation.
+                </td>
+              </tr>
+              <tr>
+                <td>SimpleRisk</td>
+                <td>GPL-3.0</td>
+                <td>
+                  The only serious open-source GRC platform: risk register,
+                  mitigations, management reviews. Governance/compliance/audit
+                  extras are paid. Caveat: development is private-repo, GitHub
+                  is a release mirror.
+                </td>
+              </tr>
+              <tr>
+                <td>compliance-trestle (OSCAL Compass, CNCF sandbox)</td>
+                <td>Apache-2.0</td>
+                <td>
+                  OSCAL-based compliance document assembly (NIST OSCAL 1.2.1);
+                  v5 stable, v4 maintained to end-2026. Machine-readable control
+                  catalogs &mdash; build your SOX-to-CRA crosswalk in OSCAL.
+                </td>
+              </tr>
+              <tr>
+                <td>Syft / Grype / Trivy / OSV-Scanner / cdxgen</td>
+                <td>Apache-2.0</td>
+                <td>
+                  The SBOM/vuln spine: Syft and cdxgen generate SPDX +
+                  CycloneDX; Grype/Trivy/OSV-Scanner match SBOMs to CVE/OSV
+                  feeds. This is your Art 13(5) component due-diligence engine,
+                  free.
+                </td>
+              </tr>
+              <tr>
+                <td>OWASP Dependency-Check</td>
+                <td>Apache-2.0</td>
+                <td>
+                  The legacy CPE/NVD-based SCA; still maintained but NVD-API-key
+                  era made it slow &mdash; prefer OSV-based scanners for new
+                  builds.
+                </td>
+              </tr>
+              <tr>
+                <td>vexctl (OpenVEX) / gocsaf</td>
+                <td>Apache-2.0 / MIT+Apache</td>
+                <td>
+                  Vulnerability exploitability eXchange: issue VEX statements
+                  ("this CVE is not reachable in our product") &mdash; directly
+                  answers Art 14 triage and Annex I Part II handling discipline.
+                </td>
+              </tr>
+              <tr>
+                <td>Gitea / GitLab CE</td>
+                <td>MIT / MIT (CE)</td>
+                <td>
+                  Protected branches + required approvals + signed merge
+                  requests = your ITGC change-management evidence, generated as
+                  a side effect of shipping. GitLab CE includes CI.
+                </td>
+              </tr>
+              <tr>
+                <td>Teleport</td>
+                <td>AGPL-3.0 core; Apache-2.0 API; enterprise proprietary</td>
+                <td>
+                  Access plane with session recording for
+                  SSH/Kubernetes/databases: the "who did what in production"
+                  evidence SOX auditors ask for. Mind the license split before
+                  standardising.
+                </td>
+              </tr>
+              <tr>
+                <td>OpenBao</td>
+                <td>MPL-2.0</td>
+                <td>
+                  Secrets management (Linux Foundation/OpenSSF fork of HashiCorp
+                  Vault after its 2023 BUSL-1.1 relicensing). The OSI-licensed
+                  choice; Vault itself remains BUSL, now under IBM.
+                </td>
+              </tr>
+              <tr>
+                <td>Keycloak / FreeIPA</td>
+                <td>Apache-2.0 / GPL-3.0</td>
+                <td>
+                  Identity + MFA + HBAC: the joiner/mover/leaver system of
+                  record that user access reviews sample from.
+                </td>
+              </tr>
+              <tr>
+                <td>MISP</td>
+                <td>AGPL-3.0</td>
+                <td>
+                  Threat-intel sharing (very active); feeds
+                  vulnerability/enrichment context into incident triage.
+                </td>
+              </tr>
+              <tr>
+                <td>TheHive / Cortex</td>
+                <td>AGPL-3.0 (archived)</td>
+                <td>
+                  Incident-response case management &mdash; but the public repos
+                  were archived October 2026; the product line is now
+                  commercial-only under StrangeBee. Do not start new deployments
+                  on the OSS versions.
+                </td>
+              </tr>
+              <tr>
+                <td>Gitleaks, Semgrep OSS, OWASP ZAP</td>
+                <td>MIT / LGPL-2.1 / Apache-2.0</td>
+                <td>
+                  Secrets scanning, static analysis, DAST &mdash; the pipeline
+                  quality gates that make "secure by default" (Annex I) an
+                  artifact, not a promise.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <strong>License traps on the OSS side</strong>
+            Verified on the report date: HashiCorp Vault is BUSL-1.1 (not open
+            source by OSI definition; OpenBao is the fork); Teleport's community
+            binaries ride a modified Apache-2.0; InSpec source is Apache-2.0 but
+            packaged distribution requires accepting the Chef EULA;
+            TheHive/Cortex public repos are dead. "Open source" claims in
+            compliance marketing pages drift; the LICENSE file is the truth.
+          </div>
+        </section>
+
+        <!-- 07 Stacks -->
+        <section id="stacks">
+          <h2>
+            <span class="num">07</span>The two stacks I would build tomorrow
+          </h2>
+          <p>
+            Minimum viable control fabric, per regime, assembled from the
+            matrices above &mdash; deliberately biased to components whose
+            evidence is born machine-readable:
+          </p>
+          <div class="dep-tree">
+            SOX ITGC stack (issuer, ERP + cloud estate) identity:
+            Keycloak/FreeIPA → IdP, MFA, joiner/mover/leaver access: Teleport
+            (privileged sessions, recorded) + quarterly UAR export change:
+            GitLab CE — protected branches, MR approvals, signed commits
+            pipeline: CI jobs emitting test/approval artifacts to object store,
+            WORM monitoring: Wazuh (TSC-mapped rules) + OpenSCAP baselines on
+            fin-critical hosts secrets: OpenBao evidence: SimpleRisk register +
+            immutable log store; 7-year retention SoD: automated ERP role
+            conflict report per release
+          </div>
+          <div class="dep-tree">
+            CRA stack (software manufacturer shipping to EU) inventory:
+            Syft/cdxgen SBOM per release (CycloneDX, signed, in registry)
+            triage: Grype/Trivy/OSV-Scanner in CI + vexctl statements per
+            product handling: coordinated-disclosure process (security.txt,
+            inbound register) response: incident runbook wired to
+            portal.cra-srp.enisa.europa.eu (24h/72h) lifecycle: published
+            support-period end date on every product page risk: Art 13(2) risk
+            assessment doc; Annex I checklist (OpenChain CRA checklist as
+            scaffold); technical doc pack for Art 31 steward-ready: public
+            security policy if you run a foundation/cohort
+          </div>
+          <div class="callout callout-teal">
+            <strong>The one diagram to remember</strong>
+            Both stacks share Git, an IdP, a scanner, and an evidence store.
+            Difference: the SOX stack terminates in an auditor's workpaper; the
+            CRA stack terminates in a CSIRT notification and a CE-marked
+            declaration of conformity. Same fabric, two mouths to feed.
+          </div>
+        </section>
+
+        <!-- 08 Choose -->
+        <section id="choose">
+          <h2><span class="num">08</span>Choose by situation</h2>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>If you are&hellip;</th>
+                <th>Regime exposure</th>
+                <th>Do this first</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>US-listed, no EU sales</td>
+                <td>SOX only</td>
+                <td>
+                  Automate ITGC evidence (Git-based change mgmt, IdP-driven
+                  UAR); buy audit-management tooling only when spreadsheet risk
+                  bites
+                </td>
+              </tr>
+              <tr>
+                <td>EU software vendor, not US-listed</td>
+                <td>CRA only</td>
+                <td>
+                  Stand up SBOM + VEX + support-period publication now; wire the
+                  SRP runbook; classify your products against Annex III/IV via
+                  Reg (EU) 2025/2392
+                </td>
+              </tr>
+              <tr>
+                <td>US-listed AND selling into the EU</td>
+                <td>Both</td>
+                <td>
+                  Build the shared fabric (&sect;04) once; map SOX ITGC evidence
+                  into CRA technical documentation; separate the 8-K and SRP
+                  triggers in one incident register
+                </td>
+              </tr>
+              <tr>
+                <td>FOSS foundation / steward</td>
+                <td>CRA light-touch</td>
+                <td>
+                  Publish the Art 24 security policy; decide whether steward
+                  status is worth it before Dec 2027; use OpenChain/ORC WG
+                  templates &mdash; fines don't apply to stewards, reporting
+                  does
+                </td>
+              </tr>
+              <tr>
+                <td>IoT / connected-device maker</td>
+                <td>CRA heavy (likely Class I/II)</td>
+                <td>
+                  Budget for a notified body (module B+C or H) and firmware SBOM
+                  tooling (Finite State-class); start the type-exam queue early
+                  &mdash; Dec 2027 will be congested
+                </td>
+              </tr>
+              <tr>
+                <td>Pre-IPO scale-up</td>
+                <td>SOX 404(a) now; 404(b) at accelerated status</td>
+                <td>
+                  Get SOX-ready before the IPO window: unremediated ITGC is a
+                  pricing issue in the listing process; EGC status buys a few
+                  years of 404(b) relief, not 404(a) relief
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>The first 90 days, for a company exposed to both</h3>
+          <div class="migration-step">
+            <div class="migration-num">1</div>
+            <div class="migration-content">
+              <h4>Register and classify (week 1&ndash;2)</h4>
+              <p>
+                Register on the ENISA SRP; classify every product against Annex
+                III/IV using Implementing Regulation (EU) 2025/2392; identify
+                your filer status on the SOX side. Both answers drive everything
+                else.
+              </p>
+            </div>
+          </div>
+          <div class="migration-step">
+            <div class="migration-num">2</div>
+            <div class="migration-content">
+              <h4>Build the shared fabric (week 2&ndash;6)</h4>
+              <p>
+                One incident register with two trigger checklists (Form 8-K Item
+                1.05 vs Art 14); SBOM generation wired into the release
+                pipeline; access reviews exported from the IdP quarterly.
+              </p>
+            </div>
+          </div>
+          <div class="migration-step">
+            <div class="migration-num">3</div>
+            <div class="migration-content">
+              <h4>Write the two runbooks (week 4&ndash;8)</h4>
+              <p>
+                Art 14 runbook: 24h early-warning template, named aware-officer,
+                SRP submission drill. ICFR runbook: walkthrough documentation
+                for the four ITGC domains with pipeline-generated evidence.
+              </p>
+            </div>
+          </div>
+          <div class="migration-step">
+            <div class="migration-num">4</div>
+            <div class="migration-content">
+              <h4>Publish the product-security facts (week 6&ndash;10)</h4>
+              <p>
+                Support-period end dates on every product page; security.txt and
+                a vulnerability intake channel; the Art 13(2) risk assessment
+                drafted against the Annex I checklist (OpenChain's as scaffold).
+              </p>
+            </div>
+          </div>
+          <div class="migration-step">
+            <div class="migration-num">5</div>
+            <div class="migration-content">
+              <h4>
+                Decide the conformity route before the rush (week 8&ndash;12)
+              </h4>
+              <p>
+                Class II or Annex IV product? Engage a notified body now &mdash;
+                capacity near 11 December 2027 will be scarce. Default or Class
+                I product? Self-assessment dossier against Annex I,
+                documentation ready for authorities under Art 31.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="risks">
+          <h2><span class="num">09</span>Risk radar</h2>
+          <p>Ordered by expected cost of getting it wrong.</p>
+
+          <div class="issue issue-critical" id="issue-1">
+            <span class="severity severity-critical"
+              >Blocking &middot; already live</span
+            >
+            <h3>The 24-hour clock applies to shipped products today</h3>
+            <div class="where">
+              Regulation (EU) 2024/2847, Art 14 + Art 69(3) &middot; live since
+              11 Sep 2026
+            </div>
+            <p>
+              Reporting duties cover actively exploited vulnerabilities and
+              severe incidents in products already made available on the EU
+              market, before full application. A company with no SRP
+              registration, no triage SLA, and no runbook is accumulating
+              unreported-clock risk on its entire shipped catalogue, at
+              &euro;15M/2.5% exposure.
+            </p>
+            <div class="callout callout-teal">
+              <strong>Fix</strong> Register on the SRP now; write the 24h
+              early-warning template; assign a named aware-officer function (the
+              clock starts at organisational awareness, not engineer awareness).
+            </div>
+          </div>
+
+          <div class="issue issue-critical" id="issue-2">
+            <span class="severity severity-critical"
+              >Blocking &middot; personal liability</span
+            >
+            <h3>SOX officers sign what the pipeline produces</h3>
+            <div class="where">
+              15 U.S.C. &sect;7241, 18 U.S.C. &sect;&sect;1350, 1519
+            </div>
+            <p>
+              &sect;302 certifications rest on controls over the systems that
+              produce the numbers. A change-management process that lives in
+              Slack approvals and a UAR done by screenshot is a deficiency
+              factory &mdash; and &sect;802 turns "we deleted the old evidence"
+              from housekeeping into a felony.
+            </p>
+            <div class="callout callout-teal">
+              <strong>Fix</strong> Make evidence a byproduct of the delivery
+              pipeline (MR approvals, CI records, IdP logs), retained immutably
+              for the audit horizon.
+            </div>
+          </div>
+
+          <div class="issue issue-important" id="issue-3">
+            <span class="severity severity-important"
+              >Important &middot; schedule risk</span
+            >
+            <h3>
+              Harmonised standards will arrive late; notified bodies are scarce
+            </h3>
+            <div class="where">
+              Standardisation request M/606 (C(2025)618), amended C(2026)7861 on
+              10 Nov 2026
+            </div>
+            <p>
+              The three-month extension for vertical standards means many Class
+              I products will self-assess against Annex I directly (there is no
+              harmonised standard to presume conformity from), and Class
+              II/critical products will queue for the limited notified-body
+              capacity being stood up through 2026&ndash;27. Congestion near 11
+              December 2027 is a scheduling certainty.
+            </p>
+            <div class="callout callout-teal">
+              <strong>Fix</strong> Self-assess against Annex I + the OpenChain
+              checklist now; book notified-body capacity early if Annex IV or
+              Class II applies.
+            </div>
+          </div>
+
+          <div class="issue issue-important" id="issue-4">
+            <span class="severity severity-important"
+              >Important &middot; scope drift</span
+            >
+            <h3>"Free of charge" is still a commercial activity</h3>
+            <div class="where">
+              Art 3 definitions; Recital 18; Commission OSS page (15 Oct 2026)
+            </div>
+            <p>
+              The CRA binds manufacturers that place products on the market "for
+              payment, monetisation or free of charge". A free core with a paid
+              support tier is clearly inside; unmonetised hobby publication is
+              out. Companies misreading "free" as "out of scope" is the most
+              common scoping error in the field.
+            </p>
+          </div>
+
+          <div class="issue issue-nice" id="issue-5">
+            <span class="severity severity-nice"
+              >Worth doing &middot; hygiene</span
+            >
+            <h3>Two registers, one incident: dual-report triggers</h3>
+            <div class="where">Form 8-K Item 1.05 vs ENISA SRP</div>
+            <p>
+              A severe product incident can simultaneously trigger &sect;409
+              disclosure &mdash; since December 2023 via
+              <strong>Form 8-K Item 1.05</strong> (materiality judgment,
+              investor lens, four-business-day default) &mdash; and Art 14
+              reporting (24h, security lens). Run one incident register with two
+              trigger checklists; divergent clocks from two teams produce
+              inconsistent disclosures &mdash; the classic enforcement path in
+              both regimes.
+            </p>
+          </div>
+        </section>
+
+        <!-- 10 Method -->
+        <section id="method">
+          <h2><span class="num">10</span>Method and sources</h2>
+          <p>
+            Every statutory claim in this report was read from a primary source
+            on 18 November 2026: the US Code and CFR via Cornell LII (15 U.S.C.
+            &sect;&sect;7241, 7262; 18 U.S.C. &sect;&sect;1350, 1519; 17 CFR
+            240.12b-2), the PCAOB standards list via an Internet Archive capture
+            of pcaobus.org (31 Oct 2026), the CRA via the Publications Office
+            text of Regulation (EU) 2024/2847 and the European Commission's CRA
+            pages (cyber-resilience-act, cra-reporting, cra-standardisation,
+            cra-conformity-assessment, cra-open-source; page last-updates 7 Sep
+            &ndash; 12 Nov 2026), ENISA's Single Reporting Platform and
+            vulnerability-services pages (SRP v1.4, 17 Nov 2026), and the
+            Commission's CRA FAQ v1.4 (dated 04/09/2026). Open source product
+            claims were checked against project repositories (licenses read from
+            LICENSE files); enterprise GRC vendor pages bot-block automated
+            fetching, so those rows are explicitly marked as analyst knowledge.
+            Where a claim could not be anchored to a primary source it is
+            flagged inline or in the appendix, not silently dropped.
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th>What it anchored</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  15 U.S.C.
+                  <a href="https://www.law.cornell.edu/uscode/text/15/7241"
+                    >&sect;7241</a
+                  >
+                  /
+                  <a href="https://www.law.cornell.edu/uscode/text/15/7262"
+                    >&sect;7262</a
+                  >
+                  (Cornell LII)
+                </td>
+                <td>
+                  &sect;302 certification items; &sect;404(a)/(b), EGC carve-out
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  18 U.S.C.
+                  <a href="https://www.law.cornell.edu/uscode/text/18/1350"
+                    >&sect;1350</a
+                  >
+                  /
+                  <a href="https://www.law.cornell.edu/uscode/text/18/1519"
+                    >&sect;1519</a
+                  >
+                  (Cornell LII)
+                </td>
+                <td>
+                  &sect;906 penalties ($1M/10yr, $5M/20yr); &sect;802 20-year
+                  exposure
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="https://www.law.cornell.edu/cfr/text/17/240.12b-2"
+                    >17 CFR 240.12b-2</a
+                  >
+                  (Cornell LII)
+                </td>
+                <td>
+                  Filer thresholds, EGC $1.235B, material weakness / significant
+                  deficiency definitions
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  PCAOB standards list (pcaobus.org via Internet Archive
+                  capture, 31 Oct 2026)
+                </td>
+                <td>
+                  AS 1000 live as general standard; AS 2201 still the
+                  integrated-ICFR standard; amendments effective 15 Dec 2026
+                  noted
+                </td>
+              </tr>
+              <tr>
+                <td>Form 8-K item table (SEC form documentation)</td>
+                <td>
+                  Item 1.05 Cybersecurity Incidents exists in the current form;
+                  four-business-day default
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="https://www.isaca.org/resources/cobit"
+                    >ISACA resource catalogue</a
+                  >
+                </td>
+                <td>COBIT 2019 still the current edition</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="https://www.coso.org/internal-control">coso.org</a>
+                  (internal-control pages, read 2026-11-18)
+                </td>
+                <td>
+                  ICIF-2013 operative; 2026 GenAI internal-control guidance,
+                  Fraud Risk Management Guide 2nd ed., cyber-risk guidance
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a
+                    href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R2847"
+                    >Regulation (EU) 2024/2847</a
+                  >
+                  (OJ text via Publications Office, CELEX:32024R2847)
+                </td>
+                <td>
+                  Art 13 (incl. 13(8) five-year support minimum, 13(13) 10-year
+                  documentation retention, 13(19) end-date display), Art
+                  14/16/24/32/64/69/71 verbatim; Annex I Parts I&ndash;II and
+                  Annexes III/IV verbatim (Appendix A); Art 3 definitions (30),
+                  (42); recitals 12, 18, 68
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a
+                    href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act"
+                    >Commission CRA pages</a
+                  >
+                  (digital-strategy.ec.europa.eu)
+                </td>
+                <td>
+                  Timeline,
+                  <a
+                    href="https://digital-strategy.ec.europa.eu/en/policies/cra-reporting"
+                    >reporting page</a
+                  >
+                  (24h/72h/14d/1mo),
+                  <a
+                    href="https://digital-strategy.ec.europa.eu/en/policies/cra-standardisation"
+                    >M/606 + C(2026)7861 extension</a
+                  >, Reg (EU) 2025/2392, Del. Reg (EU) 2025/1535,
+                  <a
+                    href="https://digital-strategy.ec.europa.eu/en/policies/cra-open-source"
+                    >FOSS steward rules</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a
+                    href="https://www.enisa.europa.eu/topics/product-security/single-reporting-platform-srp"
+                    >ENISA SRP pages</a
+                  >;
+                  <a
+                    href="https://www.enisa.europa.eu/topics/vulnerability-services"
+                    >ENISA vulnerability services</a
+                  >
+                </td>
+                <td>
+                  SRP launch 11 Sep 2026, v1.4 on 17 Nov 2026; EUVD tools-entry
+                  date 13 May 2025; ENISA CNA since Jan 2024, CVE Root since 20
+                  Nov 2025; PHP joint statement 21 Oct 2026
+                </td>
+              </tr>
+              <tr>
+                <td>Project repositories (GitHub)</td>
+                <td>Every OSS license and staleness claim in &sect;06</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Appendix A: verbatim requirements -->
+        <section id="annexa">
+          <h2>
+            <span class="num">11</span>Appendix A: Annex I and the product
+            categories, verbatim
+          </h2>
+          <p>
+            Extracted verbatim from the Official Journal text of Regulation (EU)
+            2024/2847 (OJ L series, 20.11.2024, via the Publications Office), so
+            this report carries the operative words rather than a paraphrase.
+            Part I item (2) applies "on the basis of the cybersecurity risk
+            assessment referred to in Article 13(2) and where applicable".
+          </p>
+
+          <h3>
+            Annex I, Part I &mdash; properties of products with digital elements
+          </h3>
+          <p>
+            Item (1) is the chapeau: products "shall be designed, developed and
+            produced in such a way that they ensure an appropriate level of
+            cybersecurity based on the risks." Item (2) requires that they:
+          </p>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Point</th>
+                <th>Requirement (verbatim)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>(a)</td>
+                <td>
+                  be made available on the market without known exploitable
+                  vulnerabilities;
+                </td>
+              </tr>
+              <tr>
+                <td>(b)</td>
+                <td>
+                  be made available on the market with a secure by default
+                  configuration, unless otherwise agreed between manufacturer
+                  and business user in relation to a tailor-made product with
+                  digital elements, including the possibility to reset the
+                  product to its original state;
+                </td>
+              </tr>
+              <tr>
+                <td>(c)</td>
+                <td>
+                  ensure that vulnerabilities can be addressed through security
+                  updates, including, where applicable, through automatic
+                  security updates that are installed within an appropriate
+                  timeframe enabled as a default setting, with a clear and
+                  easy-to-use opt-out mechanism, through the notification of
+                  available updates to users, and the option to temporarily
+                  postpone them;
+                </td>
+              </tr>
+              <tr>
+                <td>(d)</td>
+                <td>
+                  ensure protection from unauthorised access by appropriate
+                  control mechanisms, including but not limited to
+                  authentication, identity or access management systems, and
+                  report on possible unauthorised access;
+                </td>
+              </tr>
+              <tr>
+                <td>(e)</td>
+                <td>
+                  protect the confidentiality of stored, transmitted or
+                  otherwise processed data, personal or other, such as by
+                  encrypting relevant data at rest or in transit by state of the
+                  art mechanisms, and by using other technical means;
+                </td>
+              </tr>
+              <tr>
+                <td>(f)</td>
+                <td>
+                  protect the integrity of stored, transmitted or otherwise
+                  processed data, personal or other, commands, programs and
+                  configuration against any manipulation or modification not
+                  authorised by the user, and report on corruptions;
+                </td>
+              </tr>
+              <tr>
+                <td>(g)</td>
+                <td>
+                  process only data, personal or other, that are adequate,
+                  relevant and limited to what is necessary in relation to the
+                  intended purpose of the product with digital elements (data
+                  minimisation);
+                </td>
+              </tr>
+              <tr>
+                <td>(h)</td>
+                <td>
+                  protect the availability of essential and basic functions,
+                  also after an incident, including through resilience and
+                  mitigation measures against denial-of-service attacks;
+                </td>
+              </tr>
+              <tr>
+                <td>(i)</td>
+                <td>
+                  minimise the negative impact by the products themselves or
+                  connected devices on the availability of services provided by
+                  other devices or networks;
+                </td>
+              </tr>
+              <tr>
+                <td>(j)</td>
+                <td>
+                  be designed, developed and produced to limit attack surfaces,
+                  including external interfaces;
+                </td>
+              </tr>
+              <tr>
+                <td>(k)</td>
+                <td>
+                  be designed, developed and produced to reduce the impact of an
+                  incident using appropriate exploitation mitigation mechanisms
+                  and techniques;
+                </td>
+              </tr>
+              <tr>
+                <td>(l)</td>
+                <td>
+                  provide security related information by recording and
+                  monitoring relevant internal activity, including the access to
+                  or modification of data, services or functions, with an
+                  opt-out mechanism for the user;
+                </td>
+              </tr>
+              <tr>
+                <td>(m)</td>
+                <td>
+                  provide the possibility for users to securely and easily
+                  remove on a permanent basis all data and settings and, where
+                  such data can be transferred to other products or systems,
+                  ensure that this is done in a secure manner.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Annex I, Part II &mdash; vulnerability handling requirements</h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Point</th>
+                <th>Requirement (verbatim)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  identify and document vulnerabilities and components contained
+                  in products with digital elements, including by drawing up a
+                  software bill of materials in a commonly used and
+                  machine-readable format covering at the very least the
+                  top-level dependencies of the products;
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  in relation to the risks posed to products with digital
+                  elements, address and remediate vulnerabilities without delay,
+                  including by providing security updates; where technically
+                  feasible, new security updates shall be provided separately
+                  from functionality updates;
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  apply effective and regular tests and reviews of the security
+                  of the product with digital elements;
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  once a security update has been made available, share and
+                  publicly disclose information about fixed vulnerabilities,
+                  including a description of the vulnerabilities, information
+                  allowing users to identify the product with digital elements
+                  affected, the impacts of the vulnerabilities, their severity
+                  and clear and accessible information helping users to
+                  remediate the vulnerabilities; in duly justified cases
+                  &hellip; they may delay making public information regarding a
+                  fixed vulnerability until after users have been given the
+                  possibility to apply the relevant patch;
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  put in place and enforce a policy on coordinated vulnerability
+                  disclosure;
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  take measures to facilitate the sharing of information about
+                  potential vulnerabilities in their product with digital
+                  elements as well as in third-party components contained in
+                  that product, including by providing a contact address for the
+                  reporting of the vulnerabilities discovered in the product
+                  with digital elements;
+                </td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>
+                  provide for mechanisms to securely distribute updates for
+                  products with digital elements to ensure that vulnerabilities
+                  are fixed or mitigated in a timely manner and, where
+                  applicable for security updates, in an automatic manner;
+                </td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>
+                  ensure that, where security updates are available to address
+                  identified security issues, they are disseminated without
+                  delay and &hellip; free of charge, accompanied by advisory
+                  messages providing users with the relevant information,
+                  including on potential action to be taken.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            <strong>Read point 1 again</strong>
+            That is a statutory SBOM duty &mdash; "commonly used and
+            machine-readable format" at minimum covering top-level dependencies.
+            SPDX and CycloneDX both qualify; the tools in
+            &sect;&sect;05&ndash;06 exist to feed exactly this line.
+          </div>
+
+          <h3>
+            Annex III &mdash; important products: Class I (19 categories,
+            verbatim)
+          </h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Category</th>
+                <th>#</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  Identity management systems and privileged access management
+                  software and hardware, including authentication and access
+                  control readers, including biometric readers
+                </td>
+                <td>11</td>
+                <td>Operating systems</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Standalone and embedded browsers</td>
+                <td>12</td>
+                <td>
+                  Routers, modems intended for the connection to the internet,
+                  and switches
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Password managers</td>
+                <td>13</td>
+                <td>Microprocessors with security-related functionalities</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  Software that searches for, removes, or quarantines malicious
+                  software
+                </td>
+                <td>14</td>
+                <td>Microcontrollers with security-related functionalities</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  Products with digital elements with the function of virtual
+                  private network (VPN)
+                </td>
+                <td>15</td>
+                <td>ASICs and FPGAs with security-related functionalities</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Network management systems</td>
+                <td>16</td>
+                <td>Smart home general purpose virtual assistants</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>
+                  Security information and event management (SIEM) systems
+                </td>
+                <td>17</td>
+                <td>
+                  Smart home products with security functionalities, incl. smart
+                  door locks, security cameras, baby monitoring systems and
+                  alarm systems
+                </td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>Boot managers</td>
+                <td>18</td>
+                <td>
+                  Internet connected toys (Directive 2009/48/EC) with social
+                  interactive features or location tracking
+                </td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>
+                  Public key infrastructure and digital certificate issuance
+                  software
+                </td>
+                <td>19</td>
+                <td>
+                  Health-monitoring wearables outside Regulations (EU)
+                  2017/745&ndash;746, or wearables intended for use by/for
+                  children
+                </td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>Physical and virtual network interfaces</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Annex III Class II (4) and Annex IV critical (3), verbatim</h3>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Categories</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Class II (important)</td>
+                <td>
+                  Hypervisors and container runtime systems that support
+                  virtualised execution of operating systems and similar
+                  environments; firewalls, intrusion detection and prevention
+                  systems; tamper-resistant microprocessors; tamper-resistant
+                  microcontrollers
+                </td>
+              </tr>
+              <tr>
+                <td>Annex IV (critical)</td>
+                <td>
+                  Hardware devices with security boxes; smart meter gateways
+                  within smart metering systems (Directive (EU) 2019/944 Art
+                  2(23)) and other devices for advanced security purposes,
+                  including for secure cryptoprocessing; smartcards or similar
+                  devices, including secure elements
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Boundary precision comes from Implementing Regulation (EU) 2025/2392
+            of 28 November 2025, which gives the technical descriptions of each
+            of these categories.
+          </p>
+        </section>
+
+        <!-- Appendix -->
+        <section id="appendix">
+          <h2><span class="num">&#9670;</span>What I could not verify</h2>
+          <p>
+            Listed per the house convention &mdash; blocked or drifting sources,
+            stated rather than omitted:
+          </p>
+          <div class="callout callout-amber">
+            <strong>1. The "Digital Omnibus" CRA amendments</strong>
+            Widely reported (press, late 2025) as a Commission package proposing
+            adjustments to digital laws including the CRA. From official sources
+            I could not verify its CRA content or legislative status: the
+            Commission's CRA pages (last updated 7 Sep &ndash; 12 Nov 2026) show
+            the original timeline in force and zero mention of an omnibus, the
+            CRA FAQ v1.4 (04/09/2026) contains no occurrence of the word, and
+            the expected Commission topic page for it returns 404 as of the
+            report date. Treat any "CRA will be delayed/simplified" claim as
+            unconfirmed against primary sources as of this date.
+          </div>
+          <div class="callout callout-amber">
+            <strong>2. EN 18031 publication details</strong>
+            The series' role is confirmed via the Commission FAQ: cited in the
+            OJEU for the RED Delegated Regulation (EU) 2022/30 &mdash; not as
+            CRA harmonised standards. I could not verify from primary sources
+            the exact publication dates of the EN 18031 parts or the details of
+            the April 2025 Commission objections reported in trade press.
+          </div>
+          <div class="callout callout-amber">
+            <strong
+              >3. Commercial pricing and SOX-platform capability claims</strong
+            >
+            All enterprise GRC and SCA pricing in &sect;05 is
+            quote-behind-sales-wall; even the compliance-automation tier renders
+            no machine-readable list prices (Vanta) or blocks automated fetch
+            (Drata). Because the enterprise GRC vendors (ServiceNow, Workiva,
+            AuditBoard, StandardFusion tested) also bot-block automated
+            fetching, the SOX-platform capability rows are analyst knowledge,
+            not page-verified claims &mdash; validate with vendors before
+            purchase decisions.
+          </div>
+          <div class="callout callout-teal">
+            <strong>Resolved during review (was previously unverified)</strong>
+            PCAOB standards: verified via an Internet Archive capture (31 Oct
+            2026) of pcaobus.org &mdash; AS 1000 live as the general standard,
+            AS 2201 still the integrated-ICFR standard, amendments effective 15
+            Dec 2026 noted (&sect;02). EUVD dating: ENISA's own tools catalogue
+            lists the EUVD entry dated 13 May 2025 (&sect;03). Form 8-K's
+            cybersecurity line item (Item 1.05) confirmed via the SEC form
+            documentation.
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <p>
+            Generated 2026-11-18 &middot; Statutory claims verified against
+            primary sources read on the report date &middot; Companion file in
+            the reports series:
+            2026-10-29_open-standard-business-process-language.html
+          </p>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Progressive-enhancement scrollspy. Nav still works without JS via anchor links. -->
+    <script>
+      (function () {
+        if (!("IntersectionObserver" in window)) return;
+        var nav = document.querySelector("[data-nav]");
+        if (!nav) return;
+        var links = nav.querySelectorAll('a[href^="#"]');
+        var ids = Array.from(links).map(function (l) {
+          return l.getAttribute("href").slice(1);
+        });
+        var sections = ids
+          .map(function (id) {
+            return document.getElementById(id);
+          })
+          .filter(Boolean);
+        if (!sections.length) return;
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                links.forEach(function (link) {
+                  link.classList.toggle(
+                    "active",
+                    link.getAttribute("href") === "#" + entry.target.id,
+                  );
+                });
+              }
+            });
+          },
+          { rootMargin: "-80px 0px -60% 0px", threshold: 0 },
+        );
+        sections.forEach(function (s) {
+          observer.observe(s);
+        });
+      })();
+    </script>
+  </body>
+</html>
