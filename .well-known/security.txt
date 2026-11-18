@@ -1,0 +1,4 @@
+Contact: mailto:lars@artmann.tech
+Expires: 2027-11-19T23:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://larsartmann.github.io/cra-expert/.well-known/security.txt
