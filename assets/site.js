@@ -8,8 +8,16 @@
   var END = Date.UTC(2027, 11, 11); // full application
   var lang = document.documentElement.lang === "de" ? "de" : "en";
   var L10N = {
-    en: { done: "CRA fully applicable since 11 Dec 2027", locale: "en-US" },
-    de: { done: "CRA seit 11. Dezember 2027 vollständig anwendbar", locale: "de-DE" },
+    en: {
+      done: "CRA fully applicable since 11 Dec 2027",
+      locale: "en-US",
+      copied: "Copied",
+    },
+    de: {
+      done: "CRA seit 11. Dezember 2027 vollständig anwendbar",
+      locale: "de-DE",
+      copied: "Kopiert",
+    },
   };
 
   function compute(nowMs) {
@@ -49,4 +57,35 @@
   if (elapsed) elapsed.style.width = t.pct.toFixed(2) + "%";
   var days = document.getElementById("tl-days");
   if (days) days.textContent = t.days.toLocaleString(L10N[lang].locale);
+
+  var copyBtn = document.querySelector(".copy-mail");
+  if (copyBtn) {
+    copyBtn.hidden = false;
+    copyBtn.addEventListener("click", function () {
+      var text = copyBtn.dataset.copy || "";
+      var original = copyBtn.textContent;
+      function done() {
+        copyBtn.textContent = L10N[lang].copied;
+        setTimeout(function () {
+          copyBtn.textContent = original;
+        }, 1600);
+      }
+      function fallback() {
+        var area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        try {
+          document.execCommand("copy");
+          done();
+        } catch (e) {
+          /* copy unavailable; address remains visible and selectable */
+        }
+        document.body.removeChild(area);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText)
+        navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    });
+  }
 })();

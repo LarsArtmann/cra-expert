@@ -755,18 +755,107 @@ blockquote footer {
   font-size: 0.98rem;
 }
 .contact .big-mail {
-  display: inline-block;
-  margin-top: 1.8rem;
-  font-family: var(--font-mono);
-  font-size: clamp(1rem, 2.6vw, 1.35rem);
-  color: var(--paper);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(244, 244, 240, 0.45);
-  padding-bottom: 3px;
+display: inline-block;
+font-family: var(--font-mono);
+font-size: clamp(1rem, 2.6vw, 1.35rem);
+color: var(--paper);
+text-decoration: none;
+border-bottom: 1px solid rgba(244, 244, 240, 0.45);
+padding-bottom: 3px;
 }
 .contact .big-mail:hover {
-  color: var(--yellow);
-  border-bottom-color: var(--yellow);
+color: var(--yellow);
+border-bottom-color: var(--yellow);
+}
+.contact .big-tel {
+display: inline-block;
+font-family: var(--font-mono);
+font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+color: rgba(244, 244, 240, 0.85);
+text-decoration: none;
+border-bottom: 1px solid rgba(244, 244, 240, 0.3);
+padding-bottom: 2px;
+}
+.contact .big-tel:hover {
+color: var(--yellow);
+border-bottom-color: var(--yellow);
+}
+.contact-primary {
+margin-top: 1.2rem;
+}
+.contact-primary:first-of-type {
+margin-top: 1.8rem;
+}
+.copy-mail {
+font-family: var(--font-mono);
+font-size: 0.7rem;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+background: transparent;
+color: var(--paper);
+border: 1px solid rgba(244, 244, 240, 0.45);
+padding: 0.4rem 0.85rem;
+cursor: pointer;
+margin-left: 0.9rem;
+}
+.copy-mail:hover {
+border-color: var(--yellow);
+color: var(--yellow);
+}
+.btn-light {
+background: transparent;
+color: var(--paper);
+border: 1px solid rgba(244, 244, 240, 0.45);
+}
+.btn-light:hover {
+background: rgba(244, 244, 240, 0.12);
+color: var(--yellow);
+border-color: var(--yellow);
+}
+.contact-layout {
+margin-top: 2.2rem;
+display: flex;
+gap: 2.5rem 3rem;
+align-items: flex-start;
+flex-wrap: wrap;
+}
+.contact-options {
+flex: 1 1 340px;
+display: grid;
+gap: 0.75rem;
+align-content: start;
+}
+.contact-qr {
+flex: 0 0 auto;
+margin: 0;
+text-align: center;
+font-family: var(--font-mono);
+font-size: 0.68rem;
+color: rgba(244, 244, 240, 0.7);
+}
+.contact-qr img {
+display: block;
+border: 1px solid rgba(244, 244, 240, 0.4);
+background: #fff;
+margin-bottom: 0.45rem;
+}
+.models .model-duration {
+font-family: var(--font-mono);
+font-size: 0.72rem;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: var(--blue);
+margin-bottom: 0.55rem;
+}
+.model-list {
+margin-top: 0.65rem;
+padding-left: 1.15rem;
+}
+.model-list li {
+font-size: 0.88rem;
+line-height: 1.5;
+color: var(--ink-70);
+margin-bottom: 0.32em;
 }
 .contact-channels {
   margin-top: 2.2rem;
@@ -801,12 +890,13 @@ blockquote footer {
 /* --- Performance: skip painting far-off sections ---------------- */
 
 #services,
+#engagement,
 #research,
 #track,
 #method,
 #about {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 700px;
+content-visibility: auto;
+contain-intrinsic-size: auto 700px;
 }
 
 /* --- Print: the page must survive a recruiter's printer ----------- */
