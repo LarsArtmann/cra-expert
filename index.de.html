@@ -40,6 +40,8 @@
     />
     <meta name="theme-color" content="#f4f4f0" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -89,6 +91,18 @@
         <a href="#about">Über mich</a>
         <a href="#contact">Kontakt</a>
       </nav>
+      <details class="top-menu">
+        <summary>Men&uuml;</summary>
+        <div class="top-menu-links">
+          <a href="#clock">Die Uhr</a>
+          <a href="#services">Leistungen</a>
+          <a href="#research">Recherche</a>
+          <a href="regulatory-watch.html">Watch</a>
+          <a href="#track">Referenzen</a>
+          <a href="#about">&Uuml;ber mich</a>
+          <a href="#contact">Kontakt</a>
+        </div>
+      </details>
       <a class="top-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
       <span class="lang-switch">
         <a href="./" lang="en">EN</a>
@@ -122,9 +136,15 @@
       </section>
 
       <!-- ======================== TIMELINE BAND ======================= -->
-      <div class="band" role="region" aria-label="Zeitachse Cyber Resilience Act" data-as-of="2026-11-18">
+      <div class="band" role="region" aria-label="Zeitachse Cyber Resilience Act" aria-describedby="tl-caption" data-as-of="2026-11-18">
+        <ol class="tl-sr" lang="de">
+          <li>10. Dezember 2024: Verordnung (EU) 2024/2847 in Kraft getreten (vergangen).</li>
+          <li>11. September 2026: Meldepflichten nach Artikel 14 anwendbar: 24-Stunden-Frühwarnung und 72-Stunden-Meldung über die ENISA-Single-Reporting-Platform (vergangen, jetzt live).</li>
+          <li>11. Dezember 2026: Meilenstein, ausreichend viele benannte Stellen erwartet.</li>
+          <li>11. Dezember 2027: volle Anwendung, wesentliche Anforderungen nach Anhang I, CE-Kennzeichnung, Supportzeiträume (bevorstehend).</li>
+        </ol>
         <div class="timeline wrap">
-          <div class="tl-base">
+          <div class="tl-base" aria-hidden="true">
             <div class="tl-elapsed"></div>
 
             <div class="tl-tick past edge" style="left: 0%">
@@ -152,7 +172,7 @@
             </div>
           </div>
 
-          <div class="tl-caption">
+          <div class="tl-caption" id="tl-caption">
             <p class="tl-count">
               <span class="num" id="tl-days">388</span> Tage bis zur
               vollständigen Anwendung
@@ -572,7 +592,8 @@
               alt="Porträt von Lars Artmann"
               width="560"
               height="560"
-              fetchpriority="high"
+              loading="lazy"
+              decoding="async"
             />
             <p class="about-facts">
               Lars Artmann<br />
@@ -625,6 +646,10 @@
                 </footer>
               </blockquote>
             </div>
+            <p class="cite" style="margin-top: 1.1rem">
+              Originalzitate aus schriftlichen Referenzen; mit Einverständnis
+              veröffentlicht.
+            </p>
           </div>
         </div>
       </section>

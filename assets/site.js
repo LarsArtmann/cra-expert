@@ -58,6 +58,34 @@
   var days = document.getElementById("tl-days");
   if (days) days.textContent = t.days.toLocaleString(L10N[lang].locale);
 
+  var navLinks = document.querySelectorAll('.topbar nav a[href^="#"]');
+  if (navLinks.length && "IntersectionObserver" in window) {
+    var byId = {};
+    Array.prototype.forEach.call(navLinks, function (a) {
+      byId[a.getAttribute("href").slice(1)] = a;
+    });
+    var visible = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var link = byId[entry.target.id];
+          if (!link) return;
+          Array.prototype.forEach.call(navLinks, function (a) {
+            a.removeAttribute("aria-current");
+          });
+          link.setAttribute("aria-current", "true");
+        });
+      },
+      { rootMargin: "-35% 0px -60% 0px" }
+    );
+    Array.prototype.forEach.call(
+      document.querySelectorAll("section[id], footer[id]"),
+      function (section) {
+        if (byId[section.id]) visible.observe(section);
+      }
+    );
+  }
+
   var copyBtn = document.querySelector(".copy-mail");
   if (copyBtn) {
     copyBtn.hidden = false;

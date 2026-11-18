@@ -40,6 +40,8 @@
     />
     <meta name="theme-color" content="#f4f4f0" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -90,6 +92,18 @@
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
+      <details class="top-menu">
+        <summary>Menu</summary>
+        <div class="top-menu-links">
+          <a href="#clock">The clock</a>
+          <a href="#services">Services</a>
+          <a href="#research">Research</a>
+          <a href="regulatory-watch.html">Watch</a>
+          <a href="#track">Track record</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </details>
       <a class="top-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
       <span class="lang-switch">
         <a href="./" aria-current="page" lang="en">EN</a>
@@ -122,9 +136,15 @@
       </section>
 
       <!-- ======================== TIMELINE BAND ======================= -->
-      <div class="band" role="region" aria-label="Cyber Resilience Act timeline" data-as-of="2026-11-18">
+      <div class="band" role="region" aria-label="Cyber Resilience Act timeline" aria-describedby="tl-caption" data-as-of="2026-11-18">
+        <ol class="tl-sr">
+          <li>10 December 2024: Regulation (EU) 2024/2847 entered into force (passed).</li>
+          <li>11 September 2026: Article 14 vulnerability reporting became applicable: 24-hour early warning and 72-hour notification via the ENISA Single Reporting Platform (passed, live now).</li>
+          <li>11 December 2026: milestone, a sufficient number of notified bodies expected.</li>
+          <li>11 December 2027: full application, Annex I essential requirements, CE marking, support periods (upcoming).</li>
+        </ol>
         <div class="timeline wrap">
-          <div class="tl-base">
+          <div class="tl-base" aria-hidden="true">
             <div class="tl-elapsed"></div>
 
             <div class="tl-tick past edge" style="left: 0%">
@@ -152,7 +172,7 @@
             </div>
           </div>
 
-          <div class="tl-caption">
+          <div class="tl-caption" id="tl-caption">
             <p class="tl-count">
               <span class="num" id="tl-days">388</span> days until full
               application
@@ -555,7 +575,8 @@
               alt="Portrait of Lars Artmann"
               width="560"
               height="560"
-              fetchpriority="high"
+              loading="lazy"
+              decoding="async"
             />
             <p class="about-facts">
               Lars Artmann<br />
@@ -605,6 +626,9 @@
                 </footer>
               </blockquote>
             </div>
+            <p class="cite" style="margin-top: 1.1rem">
+              Verbatim from written references; published with consent.
+            </p>
           </div>
         </div>
       </section>
