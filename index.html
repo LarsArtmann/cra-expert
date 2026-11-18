@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lars Artmann — Cyber Resilience Act (CRA) Expert</title>
     <link rel="canonical" href="https://larsartmann.github.io/cra-expert/" />
+    <link rel="alternate" hreflang="en" href="https://larsartmann.github.io/cra-expert/" />
+    <link rel="alternate" hreflang="de" href="https://larsartmann.github.io/cra-expert/index.de.html" />
+    <link rel="alternate" hreflang="x-default" href="https://larsartmann.github.io/cra-expert/" />
     <meta
       name="description"
-      content="I turn Regulation (EU) 2024/2847 — the Cyber Resilience Act — into shipped compliance: Annex I gap analysis, SBOM pipelines, Article 14 reporting runbooks, and one control fabric for SOX and CRA. Statutory claims verified against the Official Journal."
+      content="CRA compliance engineering: Annex I gap analysis, SBOM pipelines, Article 14 reporting runbooks, from the Official Journal text of Regulation (EU) 2024/2847."
     />
     <meta name="author" content="Lars Artmann" />
     <meta property="og:type" content="website" />
@@ -23,7 +26,7 @@
     <meta name="twitter:title" content="Lars Artmann — Cyber Resilience Act (CRA) Expert" />
     <meta
       name="twitter:description"
-      content="The CRA is already running. Annex I gap analysis, SBOM pipelines, Article 14 reporting runbooks, and one control fabric for SOX and CRA."
+      content="The CRA is already running. Annex I gap analysis, SBOM pipelines, Article 14 reporting runbooks, audit trails that survive inspection."
     />
     <meta
       property="og:image"
@@ -42,7 +45,7 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Lars Artmann",
-        "jobTitle": "Cyber Resilience Act (CRA) & SOX compliance engineering consultant",
+        "jobTitle": "Cyber Resilience Act (CRA) compliance engineering consultant",
         "email": "mailto:lars@artmann.tech",
         "telephone": "+49 173 155 9729",
         "knowsAbout": [
@@ -70,835 +73,7 @@
       type="font/woff2"
       crossorigin
     />
-    <style>
-      /* =============================================================
-         Lars Artmann — Cyber Resilience Act expert site
-         Same design language as my published research reports:
-         paper and ink, EU blue as the working accent, red reserved
-         for the clock. Zero external requests, zero trackers.
-         ============================================================= */
-
-      @font-face {
-        font-family: "Cormorant SC";
-        font-style: normal;
-        font-weight: 300;
-        font-display: swap;
-        src: url("assets/fonts/cormorant-sc-300.woff2") format("woff2");
-      }
-
-      :root {
-        --paper: #f4f4f0;
-        --paper-raised: #ffffff;
-        --paper-sunken: #e9e9e3;
-        --ink: #111111;
-        --ink-70: rgba(17, 17, 17, 0.72);
-        --ink-50: rgba(17, 17, 17, 0.52);
-        --hairline: rgba(17, 17, 17, 0.16);
-        --hairline-strong: rgba(17, 17, 17, 0.34);
-        --blue: #1d3557;
-        --blue-deep: #14263f;
-        --red: #d02f3c;
-        --yellow: #f4d35e;
-
-        --font-display: "Cormorant SC", "Iowan Old Style", Georgia, serif;
-        --font-body:
-          ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        --font-mono:
-          ui-monospace, "Cascadia Code", "Source Code Pro", "JetBrains Mono",
-          Menlo, Consolas, monospace;
-
-        --wide: 1120px;
-        --measure: 66ch;
-        --pad: clamp(1.1rem, 4vw, 2.5rem);
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        background: var(--paper);
-        color: var(--ink);
-        font-family: var(--font-body);
-        font-size: 16.5px;
-        line-height: 1.65;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-      }
-
-      section[id],
-      footer[id] {
-        scroll-margin-top: 3.5rem;
-      }
-
-      :focus-visible {
-        outline: 2px solid var(--red);
-        outline-offset: 3px;
-      }
-      a:focus-visible {
-        outline-offset: 2px;
-      }
-
-      .skip-link {
-        position: absolute;
-        left: -9999px;
-        top: 0;
-        background: var(--ink);
-        color: var(--paper);
-        padding: 0.6rem 1rem;
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        z-index: 100;
-      }
-      .skip-link:focus {
-        left: 0;
-      }
-
-      a {
-        color: var(--blue);
-        text-decoration-thickness: 1px;
-        text-underline-offset: 3px;
-      }
-      a:hover {
-        color: var(--red);
-      }
-
-      /* --- Top bar ------------------------------------------------ */
-
-      .topbar {
-        background: var(--ink);
-        color: var(--paper);
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 1rem;
-        padding: 0.85rem var(--pad);
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-      .topbar a {
-        color: var(--paper);
-        text-decoration: none;
-      }
-      .topbar a:hover {
-        color: var(--yellow);
-      }
-      .topbar .who {
-        font-weight: 700;
-        white-space: nowrap;
-      }
-      .topbar nav {
-        display: flex;
-        gap: 1.1rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-      .topbar .top-mail {
-        display: none;
-      }
-      @media (max-width: 640px) {
-        .topbar nav {
-          display: none;
-        }
-        .topbar .top-mail {
-          display: inline;
-        }
-      }
-
-      /* --- Shared section scaffolding ----------------------------- */
-
-      .wrap {
-        max-width: var(--wide);
-        margin: 0 auto;
-        padding-inline: var(--pad);
-      }
-
-      section {
-        padding-block: clamp(2.8rem, 7vw, 5rem);
-      }
-      .band + section {
-        border-top: 1px solid var(--hairline);
-      }
-
-      .sec-head {
-        display: grid;
-        grid-template-columns: 200px 1fr;
-        gap: 1rem 2.5rem;
-        margin-bottom: clamp(1.8rem, 4vw, 3rem);
-      }
-      @media (max-width: 800px) {
-        .sec-head {
-          grid-template-columns: 1fr;
-          gap: 0.4rem;
-        }
-      }
-      .sec-head .kicker {
-        font-family: var(--font-mono);
-        font-size: 0.74rem;
-        letter-spacing: 0.08em;
-        color: var(--ink-50);
-        padding-top: 0.9rem;
-        border-top: 2px solid var(--ink);
-      }
-      .sec-head h2 {
-        font-family: var(--font-display);
-        font-weight: 300;
-        font-size: clamp(1.75rem, 3.6vw, 2.5rem);
-        line-height: 1.12;
-        letter-spacing: 0.01em;
-        max-width: 24ch;
-      }
-
-      .prose {
-        max-width: var(--measure);
-      }
-      .prose + .prose {
-        margin-top: 1em;
-      }
-      .lede {
-        font-size: 1.14rem;
-        line-height: 1.6;
-        max-width: 58ch;
-      }
-
-      .cite {
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        color: var(--ink-50);
-      }
-
-      /* --- Hero ---------------------------------------------------- */
-
-      .hero {
-        padding-top: clamp(3rem, 8vw, 6.5rem);
-        padding-bottom: clamp(2rem, 5vw, 4rem);
-      }
-      .hero .claim {
-        font-family: var(--font-display);
-        font-weight: 300;
-        font-size: clamp(2.5rem, 6.4vw, 4.6rem);
-        line-height: 1.04;
-        letter-spacing: 0.005em;
-        max-width: 15ch;
-      }
-      .hero .name-line {
-        font-family: var(--font-mono);
-        font-size: 0.82rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--blue);
-        margin-bottom: 1.6rem;
-      }
-      .hero .sub {
-        margin-top: 1.6rem;
-        font-size: 1.16rem;
-        line-height: 1.62;
-        max-width: 56ch;
-        color: var(--ink-70);
-      }
-      .hero .sub strong {
-        color: var(--ink);
-      }
-      .hero .cta-row {
-        margin-top: 2.2rem;
-        display: flex;
-        gap: 0.9rem 1.4rem;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-
-      .btn {
-        display: inline-block;
-        font-family: var(--font-mono);
-        font-size: 0.82rem;
-        letter-spacing: 0.05em;
-        padding: 0.78rem 1.25rem;
-        text-decoration: none;
-        border: 1px solid var(--ink);
-        transition: background-color 0.15s ease, color 0.15s ease;
-      }
-      .btn:hover {
-        color: var(--ink);
-      }
-      .btn-primary {
-        background: var(--ink);
-        color: var(--paper);
-      }
-      .btn-primary:hover {
-        background: var(--blue);
-        border-color: var(--blue);
-        color: #fff;
-      }
-      .btn-ghost {
-        background: transparent;
-        color: var(--ink);
-      }
-      .btn-ghost:hover {
-        background: var(--paper-sunken);
-        border-color: var(--ink);
-      }
-
-      /* --- Timeline band (the one bold element) -------------------- */
-
-      .band {
-        background: var(--paper-raised);
-        border-top: 1px solid var(--hairline);
-        border-bottom: 1px solid var(--hairline);
-      }
-      .timeline {
-        position: relative;
-        margin: 0 auto;
-        padding: 4.6rem 0 4rem;
-      }
-      .tl-base {
-        position: relative;
-        height: 2px;
-        background: var(--hairline-strong);
-      }
-      .tl-elapsed {
-        position: absolute;
-        inset-block-start: 0;
-        inset-inline-start: 0;
-        height: 2px;
-        width: 64.5%;
-        background: var(--red);
-      }
-      .tl-tick {
-        position: absolute;
-        inset-block-start: -5px;
-        width: 1px;
-        height: 12px;
-        background: var(--ink);
-      }
-      .tl-tick.past {
-        background: var(--red);
-      }
-      .tl-tick .tl-date {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        transform: translateX(-50%);
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        white-space: nowrap;
-        color: var(--ink-70);
-      }
-      .tl-tick .tl-label {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        transform: translateX(-50%);
-        font-size: 0.82rem;
-        line-height: 1.3;
-        width: 150px;
-        text-align: center;
-        color: var(--ink-70);
-      }
-      .tl-tick .tl-label strong {
-        display: block;
-        color: var(--ink);
-        font-weight: 600;
-      }
-      .tl-tick.mid .tl-date {
-        top: auto;
-        bottom: 20px;
-      }
-      .tl-tick.mid .tl-label {
-        bottom: auto;
-        top: 20px;
-      }
-      .tl-tick.edge .tl-date,
-      .tl-tick.edge .tl-label {
-        transform: none;
-        text-align: left;
-      }
-      .tl-tick.edge-r .tl-date,
-      .tl-tick.edge-r .tl-label {
-        transform: translateX(-100%);
-        text-align: right;
-      }
-      .tl-live {
-        color: var(--red);
-        font-family: var(--font-mono);
-        font-size: 0.66rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-      .tl-today {
-        position: absolute;
-        inset-block-start: -6px;
-        inset-inline-start: 64.5%;
-        width: 0;
-        height: 0;
-      }
-      .tl-today .dot {
-        position: absolute;
-        left: -6px;
-        top: -1px;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--red);
-      }
-      .tl-today .tag {
-        position: absolute;
-        left: 12px;
-        bottom: 8px;
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        white-space: nowrap;
-        color: var(--red);
-        background: var(--paper-raised);
-        padding: 2px 6px;
-        border: 1px solid var(--red);
-      }
-      .tl-caption {
-        margin-top: 2.2rem;
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-      .tl-count {
-        font-family: var(--font-display);
-        font-size: 1.5rem;
-        color: var(--red);
-      }
-      .tl-count .num {
-        font-size: 2.2rem;
-      }
-      .tl-note {
-        font-size: 0.85rem;
-        color: var(--ink-50);
-        max-width: 46ch;
-        align-self: end;
-      }
-      @media (prefers-reduced-motion: no-preference) {
-        .tl-today .dot {
-          animation: tl-pulse 2.2s ease-out infinite;
-        }
-        @keyframes tl-pulse {
-          0% {
-            box-shadow: 0 0 0 0 rgba(208, 47, 60, 0.45);
-          }
-          70% {
-            box-shadow: 0 0 0 11px rgba(208, 47, 60, 0);
-          }
-          100% {
-            box-shadow: 0 0 0 0 rgba(208, 47, 60, 0);
-          }
-        }
-      }
-      @media (max-width: 640px) {
-        .timeline {
-          padding-inline: 0;
-        }
-        .tl-tick .tl-label {
-          width: 110px;
-          font-size: 0.72rem;
-        }
-        .tl-today .tag {
-          display: none;
-        }
-      }
-
-      /* --- Fact blocks (the clock) --------------------------------- */
-
-      .facts {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0;
-        border: 1px solid var(--hairline);
-        background: var(--paper-raised);
-      }
-      @media (max-width: 900px) {
-        .facts {
-          grid-template-columns: 1fr;
-        }
-        .fact + .fact {
-          border-top: 1px solid var(--hairline);
-        }
-      }
-      @media (min-width: 901px) {
-        .fact + .fact {
-          border-left: 1px solid var(--hairline);
-        }
-      }
-      .fact {
-        padding: clamp(1.3rem, 2.5vw, 1.9rem);
-      }
-      .fact .fact-rule {
-        width: 34px;
-        height: 3px;
-        background: var(--blue);
-        margin-bottom: 1.1rem;
-      }
-      .fact.fact-red .fact-rule {
-        background: var(--red);
-      }
-      .fact.fact-yellow .fact-rule {
-        background: var(--yellow);
-      }
-      .fact h3 {
-        font-size: 1.02rem;
-        line-height: 1.35;
-        margin-bottom: 0.6rem;
-      }
-      .fact p {
-        font-size: 0.92rem;
-        line-height: 1.6;
-        color: var(--ink-70);
-      }
-      .fact p + p {
-        margin-top: 0.5em;
-      }
-      .fact .key {
-        font-family: var(--font-mono);
-        font-size: 0.76rem;
-      }
-
-      /* --- Services ------------------------------------------------ */
-
-      .svc {
-        border-top: 1px solid var(--hairline);
-        padding: clamp(1.4rem, 3vw, 2rem) 0;
-        display: grid;
-        grid-template-columns: 200px 1fr;
-        gap: 0.5rem 2.5rem;
-      }
-      @media (max-width: 800px) {
-        .svc {
-          grid-template-columns: 1fr;
-          gap: 0.5rem;
-        }
-      }
-      .svc:last-of-type {
-        border-bottom: 1px solid var(--hairline);
-      }
-      .svc h3 {
-        font-family: var(--font-display);
-        font-weight: 300;
-        font-size: 1.45rem;
-        line-height: 1.2;
-      }
-      .svc .svc-body {
-        max-width: var(--measure);
-        font-size: 0.96rem;
-        color: var(--ink-70);
-      }
-      .svc .svc-body strong {
-        color: var(--ink);
-      }
-
-      /* --- Research artifacts -------------------------------------- */
-
-      .artifact {
-        background: var(--paper-raised);
-        border: 1px solid var(--hairline);
-        padding: clamp(1.4rem, 3vw, 2.2rem);
-      }
-      .artifact + .artifact {
-        margin-top: 1.4rem;
-      }
-      .artifact .art-meta {
-        font-family: var(--font-mono);
-        font-size: 0.74rem;
-        color: var(--ink-50);
-        margin-bottom: 0.8rem;
-      }
-      .artifact h3 {
-        font-family: var(--font-display);
-        font-weight: 300;
-        font-size: 1.7rem;
-        line-height: 1.15;
-        margin-bottom: 0.7rem;
-      }
-      .artifact h3 a {
-        color: var(--ink);
-        text-decoration: none;
-        border-bottom: 1px solid var(--hairline-strong);
-      }
-      .artifact h3 a:hover {
-        color: var(--blue);
-        border-bottom-color: var(--blue);
-      }
-      .artifact p {
-        max-width: var(--measure);
-        font-size: 0.95rem;
-        color: var(--ink-70);
-      }
-      .artifact .includes {
-        margin-top: 1rem;
-        font-size: 0.84rem;
-        color: var(--ink-70);
-        columns: 2;
-        column-gap: 2.5rem;
-        max-width: 62ch;
-      }
-      @media (max-width: 640px) {
-        .artifact .includes {
-          columns: 1;
-        }
-      }
-      .artifact .includes li {
-        break-inside: avoid;
-        margin-bottom: 0.3em;
-        padding-left: 1rem;
-        position: relative;
-        list-style: none;
-      }
-      .artifact .includes li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.62em;
-        width: 5px;
-        height: 5px;
-        background: var(--blue);
-      }
-      .artifact .art-cta {
-        margin-top: 1.4rem;
-      }
-
-      /* --- Track record --------------------------------------------- */
-
-      .track {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(1.4rem, 3vw, 2.5rem);
-      }
-      @media (max-width: 800px) {
-        .track {
-          grid-template-columns: 1fr;
-        }
-      }
-      .track-item {
-        border-top: 2px solid var(--ink);
-        padding-top: 0.9rem;
-      }
-      .track-item .where {
-        font-family: var(--font-mono);
-        font-size: 0.76rem;
-        color: var(--ink-50);
-        margin-bottom: 0.35rem;
-      }
-      .track-item h3 {
-        font-size: 1.05rem;
-        margin-bottom: 0.45rem;
-      }
-      .track-item p {
-        font-size: 0.92rem;
-        color: var(--ink-70);
-      }
-
-      /* --- Method ---------------------------------------------------- */
-
-      .method {
-        counter-reset: m;
-        border-top: 1px solid var(--hairline);
-      }
-      .method li {
-        list-style: none;
-        counter-increment: m;
-        border-bottom: 1px solid var(--hairline);
-        padding: clamp(1.2rem, 2.5vw, 1.7rem) 0;
-        display: grid;
-        grid-template-columns: 200px 1fr;
-        gap: 0.4rem 2.5rem;
-      }
-      @media (max-width: 800px) {
-        .method li {
-          grid-template-columns: 1fr;
-        }
-      }
-      .method li::before {
-        content: "M" counter(m);
-        font-family: var(--font-mono);
-        font-size: 0.76rem;
-        color: var(--blue);
-        padding-top: 0.35rem;
-      }
-      .method h3 {
-        font-size: 1.05rem;
-        margin-bottom: 0.35rem;
-      }
-      .method p {
-        font-size: 0.93rem;
-        color: var(--ink-70);
-        max-width: var(--measure);
-      }
-
-      /* --- About ------------------------------------------------------ */
-
-      .about-grid {
-        display: grid;
-        grid-template-columns: 240px 1fr;
-        gap: clamp(1.6rem, 4vw, 3.5rem);
-        align-items: start;
-      }
-      @media (max-width: 720px) {
-        .about-grid {
-          grid-template-columns: 1fr;
-        }
-        .about-photo {
-          max-width: 220px;
-        }
-      }
-      .about-photo {
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
-        border: 1px solid var(--hairline-strong);
-        filter: grayscale(18%) contrast(1.02);
-      }
-      .about-facts {
-        margin-top: 1.1rem;
-        font-family: var(--font-mono);
-        font-size: 0.76rem;
-        line-height: 1.9;
-        color: var(--ink-70);
-      }
-      .quotes {
-        margin-top: 2.2rem;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(1.4rem, 3vw, 2.5rem);
-      }
-      @media (max-width: 800px) {
-        .quotes {
-          grid-template-columns: 1fr;
-        }
-      }
-      blockquote {
-        border-top: 2px solid var(--blue);
-        padding-top: 0.9rem;
-      }
-      blockquote p {
-        font-size: 0.95rem;
-        color: var(--ink-70);
-        max-width: 52ch;
-      }
-      blockquote footer {
-        margin-top: 0.6rem;
-        font-family: var(--font-mono);
-        font-size: 0.74rem;
-        color: var(--ink-50);
-      }
-
-      /* --- Contact footer --------------------------------------------- */
-
-      .contact {
-        background: var(--blue-deep);
-        color: var(--paper);
-      }
-      .contact .wrap {
-        padding-block: clamp(3rem, 7vw, 5rem);
-      }
-      .contact h2 {
-        font-family: var(--font-display);
-        font-weight: 300;
-        font-size: clamp(1.9rem, 4vw, 2.8rem);
-        line-height: 1.1;
-        max-width: 22ch;
-      }
-      .contact p {
-        margin-top: 1rem;
-        max-width: 52ch;
-        color: rgba(244, 244, 240, 0.82);
-        font-size: 0.98rem;
-      }
-      .contact .big-mail {
-        display: inline-block;
-        margin-top: 1.8rem;
-        font-family: var(--font-mono);
-        font-size: clamp(1rem, 2.6vw, 1.35rem);
-        color: var(--paper);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(244, 244, 240, 0.45);
-        padding-bottom: 3px;
-      }
-      .contact .big-mail:hover {
-        color: var(--yellow);
-        border-bottom-color: var(--yellow);
-      }
-      .contact-channels {
-        margin-top: 2.2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem 2.2rem;
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-      }
-      .contact-channels a {
-        color: rgba(244, 244, 240, 0.85);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(244, 244, 240, 0.3);
-      }
-      .contact-channels a:hover {
-        color: var(--yellow);
-        border-bottom-color: var(--yellow);
-      }
-      .colophon {
-        margin-top: 3rem;
-        padding-top: 1.2rem;
-        border-top: 1px solid rgba(244, 244, 240, 0.18);
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-        font-family: var(--font-mono);
-        font-size: 0.68rem;
-        color: rgba(244, 244, 240, 0.55);
-      }
-
-      /* --- Performance: skip painting far-off sections ---------------- */
-
-      #services,
-      #research,
-      #track,
-      #method,
-      #about {
-        content-visibility: auto;
-        contain-intrinsic-size: auto 700px;
-      }
-
-      /* --- Print: the page must survive a recruiter's printer ----------- */
-
-      @media print {
-        .topbar,
-        .cta-row,
-        .tl-today .tag {
-          display: none;
-        }
-        body {
-          font-size: 11.5pt;
-          background: #fff;
-        }
-        .contact {
-          background: #fff;
-          color: #000;
-        }
-        .contact p,
-        .contact .big-mail,
-        .contact-channels a,
-        .colophon,
-        .colophon p {
-          color: #000;
-        }
-        section {
-          padding-block: 1.2rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="assets/site.css" />
   </head>
 
   <body>
@@ -915,6 +90,10 @@
         <a href="#contact">Contact</a>
       </nav>
       <a class="top-mail" href="mailto:lars@artmann.tech">lars@artmann.tech</a>
+      <span class="lang-switch">
+        <a href="./" aria-current="page" lang="en">EN</a>
+        <a href="index.de.html" lang="de">DE</a>
+      </span>
     </header>
 
     <main id="main">
@@ -936,13 +115,13 @@
             >Ask for a CRA readiness assessment</a
           >
           <a class="btn btn-ghost" href="reports/2026-11-18_sox-cra-compliance.html"
-            >Read the SOX + CRA research</a
+            >Read the CRA research</a
           >
         </div>
       </section>
 
       <!-- ======================== TIMELINE BAND ======================= -->
-      <div class="band" role="region" aria-label="Cyber Resilience Act timeline">
+      <div class="band" role="region" aria-label="Cyber Resilience Act timeline" data-as-of="2026-11-18">
         <div class="timeline wrap">
           <div class="tl-base">
             <div class="tl-elapsed"></div>
@@ -989,7 +168,7 @@
       </div>
 
       <!-- ========================= THE CLOCK ========================== -->
-      <section id="clock" class="wrap" aria-labelledby="clock-h">
+      <section id="clock" class="wrap" aria-labelledby="clock-h" data-as-of="2026-11-18">
         <div class="sec-head">
           <p class="kicker">Where you stand</p>
           <h2 id="clock-h">The clock is already running</h2>
@@ -1034,7 +213,7 @@
       </section>
 
       <!-- ========================== SERVICES ========================== -->
-      <section id="services" class="wrap" aria-labelledby="services-h">
+      <section id="services" class="wrap" aria-labelledby="services-h" data-as-of="2026-11-18">
         <div class="sec-head">
           <p class="kicker">What I do</p>
           <h2 id="services-h">From classification to inspected evidence</h2>
@@ -1070,14 +249,14 @@
         </div>
 
         <div class="svc">
-          <h3>SOX + CRA as one program</h3>
+          <h3>CRA program, SOX-ready</h3>
           <div class="svc-body">
             <p>
-              US-listed and selling into the EU? Change management, access
-              management, vulnerability handling, monitoring and evidence
-              retention are <strong>one control fabric with two reporting
-              formats</strong>. Build it once, map it twice: Form 8-K Item 1.05
-              and Art 14 triggers living in one incident register, ITGC
+              Your CRA program owns change management, access management,
+              vulnerability handling, monitoring and evidence retention
+              &mdash; <strong>one control fabric, one build</strong>. If you
+              are also US-listed, the same fabric maps to SOX: Form 8-K Item
+              1.05 and Art 14 triggers in one incident register, ITGC
               walkthrough evidence doubling as CRA technical documentation.
             </p>
           </div>
@@ -1272,7 +451,7 @@
             <div>
               <h3>Build the fabric once, map it twice</h3>
               <p>
-                SOX and the CRA share roughly two-thirds of their underlying
+                The CRA and SOX share roughly two-thirds of their underlying
                 controls. One investment, two reporting formats &mdash; and
                 separate attestations, because an ICFR opinion says nothing
                 about CE marking.
@@ -1392,30 +571,6 @@
       </div>
     </footer>
 
-    <script>
-      // Progressive enhancement only: the page is accurate without JS.
-      // Timeline marker + countdown from the statute's own dates.
-      (function () {
-        var start = Date.UTC(2024, 11, 10); // in force
-        var end = Date.UTC(2027, 11, 11); // full application
-        var today = new Date();
-        var now = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-        if (now <= start || now >= end) return;
-        var pct = ((now - start) / (end - start)) * 100;
-        var marker = document.getElementById("tl-today");
-        if (marker) {
-          marker.style.insetInlineStart = pct.toFixed(2) + "%";
-          var tag = marker.querySelector(".tag");
-          if (tag && pct > 78) tag.hidden = true; // keep clear of the deadline label
-        }
-        var elapsed = document.querySelector(".tl-elapsed");
-        if (elapsed) elapsed.style.width = pct.toFixed(2) + "%";
-        var days = document.getElementById("tl-days");
-        if (days)
-          days.textContent = Math.round((end - now) / 86400000).toLocaleString(
-            "en-US",
-          );
-      })();
-    </script>
+    <script src="assets/site.js"></script>
   </body>
 </html>
