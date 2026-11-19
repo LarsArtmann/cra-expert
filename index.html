@@ -10,7 +10,7 @@
     <link rel="alternate" hreflang="x-default" href="https://larsartmann.github.io/cra-expert/" />
     <meta
       name="description"
-      content="CRA compliance engineering: Annex I gap analysis, SBOM pipelines, Article 14 reporting runbooks, from the Official Journal text of Regulation (EU) 2024/2847."
+      content="CRA compliance engineering from the Official Journal text: Annex I gap analysis, SBOM pipelines and Article 14 reporting runbooks that hold up to inspection."
     />
     <meta name="author" content="Lars Artmann" />
     <meta property="og:type" content="website" />
@@ -20,7 +20,7 @@
     <meta property="og:title" content="Lars Artmann — Cyber Resilience Act (CRA) Expert" />
     <meta
       property="og:description"
-      content="The CRA is already running. I read the law from the Official Journal, then build the SBOM pipelines, reporting runbooks and audit trails that prove you comply."
+      content="The CRA is already running. I read the law in the Official Journal, then build the SBOM pipelines, reporting runbooks and audit trails that prove you comply."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Lars Artmann — Cyber Resilience Act (CRA) Expert" />
@@ -116,32 +116,38 @@
       <section class="hero wrap" aria-labelledby="claim">
         <p class="name-line">Lars Artmann &middot; Cyber Resilience Act expert</p>
         <h1 id="claim" class="claim">
-          I turn the Cyber&nbsp;Resilience&nbsp;Act into shipped&nbsp;compliance.
+          I turn the Cyber&nbsp;Resilience&nbsp;Act into proof.
         </h1>
         <p class="sub">
           Regulation (EU) 2024/2847 gates EU market access for anything with
-          digital elements. <strong>I read the law from the Official
-          Journal</strong>, work out what it means for your products, and build
-          the SBOM pipelines, reporting runbooks and audit trails that prove it
-          &mdash; in your repository, not in a slide deck.
+          digital elements. <strong>I read the law in the Official
+          Journal</strong>, translate it into what each product has to show,
+          and build the SBOM pipelines, reporting runbooks and audit trails
+          that make the proof checkable &mdash; in your repository, not in a
+          slide deck.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="mailto:lars@artmann.tech?subject=CRA%20readiness%20assessment"
-            >Ask for a CRA readiness assessment</a
+            >Request a CRA readiness assessment</a
           >
           <a class="btn btn-ghost" href="reports/2026-11-18_sox-cra-compliance.html"
-            >Read the CRA research</a
+            >Read the research report</a
           >
         </div>
+        <p class="cite" style="margin-top: 1.4rem">
+          Not ready to talk?
+          <a href="annex-i.html">Run the free Annex I self-assessment</a>
+          &mdash; 21 checks, in your browser, nothing sent.
+        </p>
       </section>
 
       <!-- ======================== TIMELINE BAND ======================= -->
       <div class="band" role="region" aria-label="Cyber Resilience Act timeline" aria-describedby="tl-caption" data-as-of="2026-11-18">
         <ol class="tl-sr">
-          <li>10 December 2024: Regulation (EU) 2024/2847 entered into force (passed).</li>
-          <li>11 September 2026: Article 14 vulnerability reporting became applicable: 24-hour early warning and 72-hour notification via the ENISA Single Reporting Platform (passed, live now).</li>
-          <li>11 December 2026: milestone, a sufficient number of notified bodies expected.</li>
-          <li>11 December 2027: full application, Annex I essential requirements, CE marking, support periods (upcoming).</li>
+          <li>10 December 2024: Regulation (EU) 2024/2847 entered into force.</li>
+          <li>11 September 2026: Article 14 reporting became applicable &mdash; 24-hour early warning and 72-hour notification via the ENISA Single Reporting Platform. Live now.</li>
+          <li>11 December 2026: milestone &mdash; a sufficient number of notified bodies is expected.</li>
+          <li>11 December 2027: full application &mdash; Annex I essential requirements, CE marking and support periods.</li>
         </ol>
         <div class="timeline wrap">
           <div class="tl-base" aria-hidden="true">
@@ -179,10 +185,10 @@
             </p>
             <p class="tl-note">
               Milestone between them: by 11 Dec 2026 enough notified bodies
-              must exist &mdash; Class II and critical products should queue
-              early. Positions from the statute&rsquo;s own dates; reporting
-              (Art 14 + Art 69(3)) already covers products shipped before
-              full application.
+              are expected to exist &mdash; Class II and critical products
+              should book assessment slots early. Every date on this timeline
+              is the statute&rsquo;s own; reporting (Art 14 + Art 69(3))
+              already covers products shipped before full application.
             </p>
           </div>
         </div>
@@ -223,13 +229,13 @@
           </div>
           <div class="fact">
             <div class="fact-rule" aria-hidden="true"></div>
-            <h3>The stake is EU market access</h3>
+            <h3>What is at stake: EU market access</h3>
             <p>
               Up to <strong>&euro;15&thinsp;million or 2.5% of worldwide
               turnover</strong> &mdash; and withdrawal of CE marking: products
               can be pulled from the Union market. If you are US-listed, SOX
-              rides on top; about two-thirds of the control work is one shared
-              fabric.
+              rides on top; roughly two-thirds of the control work is one
+              shared fabric.
             </p>
           </div>
         </div>
@@ -239,7 +245,7 @@
       <section id="services" class="wrap" aria-labelledby="services-h" data-as-of="2026-11-18">
         <div class="sec-head">
           <p class="kicker">What I do</p>
-          <h2 id="services-h">From classification to inspected evidence</h2>
+          <h2 id="services-h">From classification to evidence that survives inspection</h2>
         </div>
 
         <div class="svc">
@@ -291,7 +297,7 @@
           <div class="svc-body">
             <p>
               If you sustain open source used in commercial contexts, Art 24
-              makes you a steward with duties from December 2027: a public
+              makes you a steward with duties from 11 December 2027: a public
               cybersecurity policy, secure development and vulnerability
               handling, cooperation with authorities. I set up the policy and
               process &mdash; scaffolded on OpenChain / ORC&nbsp;WG material
@@ -310,8 +316,9 @@
               evidence stores with provenance pointers to the originals, and
               correlation keys across systems &mdash; so &ldquo;what happened,
               when, who did it, and where is the original&rdquo; is one query.
-              I run exactly this architecture in my own production systems; the
-              method is in the research section below.
+              I run this architecture in my own production systems;
+              <a href="#research">the method is documented in the research
+              below</a>.
             </p>
           </div>
         </div>
@@ -360,8 +367,9 @@
           </div>
         </div>
         <p class="prose" style="margin-top: 1.5rem">
-          Scope and pricing per engagement:
-          <a href="mailto:lars@artmann.tech?subject=Engagement%20scope%20and%20pricing">ask directly</a>.
+          Every engagement is scoped and priced in writing before it starts
+          &mdash;
+          <a href="mailto:lars@artmann.tech?subject=Engagement%20scope%20and%20pricing">ask for the one-page scope</a>.
         </p>
       </section>
 
@@ -380,13 +388,13 @@
             >
           </h3>
           <p>
-            Both regimes reconstructed from primary sources &mdash; the U.S.
-            Code and the Official Journal text, read on the report date &mdash;
-            including the live CRA timeline with what already happened, the
-            penalty tiers, the product classes (19 / 4 / 3 categories, listed
-            verbatim), Annex I in the appendix, and the full commercial and
-            open-source tooling landscape. Ends with a first-90-days plan for
-            companies exposed to both regimes.
+            Both regimes reconstructed from primary sources &mdash; the CRA
+            from the Official Journal text, SOX from the U.S. Code, both read
+            on the report date &mdash; including the live CRA timeline with
+            what already happened, the penalty tiers, the product classes
+            (19 / 4 / 3 categories, listed verbatim), Annex I in the appendix,
+            and the full commercial and open-source tooling landscape. Ends
+            with a first-90-days plan for companies exposed to both regimes.
           </p>
           <ul class="includes">
             <li>SOX &sect;&sect;302/404/802/906 with codifications</li>
@@ -398,7 +406,7 @@
           </ul>
           <p class="art-cta">
             <a class="btn btn-ghost" href="reports/2026-11-18_sox-cra-compliance.html"
-              >Open the report (self-contained HTML)</a
+              >Open the full report</a
             >
           </p>
         </article>
@@ -412,9 +420,16 @@
             requires: actor attribution on every write, occurrence times
             instead of ingestion times, provenance pointers from every journal
             line back to the original record, and one correlation convention
-            across systems. Twelve findings, three blocking-class, each with
+            across systems. Twelve findings, three of them blocking, each with
             file:line evidence and a closing plan in Pareto order. Contains
             third-party data, so it is shared on request rather than published.
+          </p>
+          <p class="art-cta">
+            <a
+              class="btn btn-ghost"
+              href="mailto:lars@artmann.tech?subject=Audit-trail%20readiness%20review"
+              >Request the audit summary</a
+            >
           </p>
         </article>
 
@@ -436,8 +451,8 @@
       <!-- ======================== TRACK RECORD ======================== -->
       <section id="track" class="wrap" aria-labelledby="track-h">
         <div class="sec-head">
-          <p class="kicker">Ten years of shipping</p>
-          <h2 id="track-h">Regulation-readiness is an engineering problem</h2>
+          <p class="kicker">Ten-plus years of shipping</p>
+          <h2 id="track-h">Compliance is an engineering problem</h2>
         </div>
 
         <div class="track">
@@ -448,8 +463,9 @@
               Found the &ldquo;unknown unknown&rdquo; that blocked a country
               launch 48 hours before go-live &mdash; an accounting-standard
               incompatibility six months of planning had missed. Then delivered
-              Peppol e-invoicing across Greece, Germany, France, Spain, Poland
-              and further European markets.
+              Peppol e-invoicing for Greece, prepared the Hungarian and
+              Bulgarian rollouts, and worked inside a certified Access Point
+              serving Germany, France, Spain and Poland.
               <a href="case-market-entry-wolt.html">Read the market-entry case</a>
               &middot;
               <a href="case-peppol.html">the e-invoicing case</a>.
@@ -469,9 +485,10 @@
             <p class="where">HORNBACH</p>
             <h3>Real-time streams for 1&thinsp;M+ products, 169 stores</h3>
             <p>
-              Replaced 28-hour nightly batch jobs with real-time change
-              data capture &mdash; roughly a 1000&times; freshness improvement
-              on the product data platform of a DIY retail giant.
+              Replaced 28-hour nightly batch jobs with real-time change data
+              capture on the product data platform of a DIY retail giant:
+              product data that used to arrive a day late now arrives in
+              seconds.
             </p>
           </div>
           <div class="track-item">
@@ -496,7 +513,7 @@
           </div>
           <div class="track-item">
             <p class="where">Earlier</p>
-            <h3>From 1M-player game servers to NASA</h3>
+            <h3>From game servers for a million players to NASA</h3>
             <p>
               Game server infrastructure with more than a million users,
               white-label apps for small businesses, and confidential projects
@@ -564,7 +581,7 @@
       <section id="about" class="wrap" aria-labelledby="about-h">
         <div class="sec-head">
           <p class="kicker">About</p>
-          <h2 id="about-h">The engineer regulators can ask to open the repo</h2>
+          <h2 id="about-h">The engineer who can open the repo when the inspector asks</h2>
         </div>
 
         <div class="about-grid">
@@ -593,11 +610,11 @@
               Official Journal. I do both.
             </p>
             <p>
-              Ten-plus years shipping software &mdash; game servers with more
-              than a million users, confidential NASA projects, cloud estates
-              for billion-dollar and S&amp;P&nbsp;500 companies &mdash; and now
-              the compliance engineering that the Cyber Resilience Act turns
-              into an engineering obligation: classification, evidence
+              Ten-plus years of shipping software &mdash; game servers with
+              more than a million users, confidential NASA projects, cloud
+              estates for billion-dollar and S&amp;P&nbsp;500 companies &mdash;
+              and now the compliance engineering that the Cyber Resilience Act
+              turns into an engineering obligation: classification, evidence
               pipelines, reporting runbooks, audit trails.
             </p>
 
@@ -661,7 +678,7 @@
             <a
               class="btn btn-light"
               href="mailto:lars@artmann.tech?subject=CRA%20readiness%20assessment&amp;body=What%20we%20ship%3A%0AWhere%20we%20sell%20it%3A%0ARegulatory%20deadline%20pressure%3A"
-              >Ask for a CRA readiness assessment</a
+              >Request a CRA readiness assessment</a
             >
             <a class="btn btn-light" href="mailto:lars@artmann.tech?subject=CRA%20question"
               >Ask a CRA question</a
@@ -682,7 +699,6 @@
         </div>
 
         <div class="contact-channels">
-          <a href="tel:+491731559729">+49 173 155 9729</a>
           <a href="https://www.linkedin.com/in/larsartmann" rel="me">LinkedIn</a>
           <a href="https://github.com/larsartmann" rel="me">GitHub</a>
           <a href="https://youtube.com/@larsartmann" rel="me">YouTube</a>
@@ -691,7 +707,7 @@
 
         <div class="colophon">
           <p>
-            Independent engineering-side compliance work &mdash; assessment,
+            I do the engineering side of compliance &mdash; assessment,
             implementation, evidence. For legal advice I team with counsel.
           </p>
           <p>
